@@ -10,7 +10,10 @@
         "build": "tsc",
         "start": "node ./dist/src/index.js",
         "lint": "eslint **/*.ts",
-        "lint:fix": "eslint **/*.ts --fix"
+        "lint:fix": "eslint **/*.ts --fix",
+        "migrate": "prisma migrate dev",
+        "deploy": "prisma migrate deploy --preview-feature",
+        "studio": "prisma studio"
     },
     "dependencies": {
         "@prisma/client": "^3.7.0",
