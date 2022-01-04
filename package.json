@@ -8,7 +8,12 @@
     "scripts": {
         "dev": "nodemon",
         "build": "tsc",
-        "start": "node ./dist/src/index.js"
+        "start": "node ./dist/src/index.js",
+        "lint": "eslint **/*.ts",
+        "lint:fix": "eslint **/*.ts --fix",
+        "migrate": "prisma migrate dev",
+        "deploy": "prisma migrate deploy --preview-feature",
+        "studio": "prisma studio"
     },
     "dependencies": {
         "@prisma/client": "^3.7.0",
@@ -19,9 +24,15 @@
         "dotenv": "^10.0.0",
         "node": "^17.3.0",
         "nodemon": "^2.0.15",
+        "prettier": "^2.5.1",
         "prisma": "^3.7.0",
         "semantic-release": "^18.0.1",
         "ts-node": "^10.4.0",
         "typescript": "^4.5.4"
+    },
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^5.9.0",
+        "@typescript-eslint/parser": "^5.9.0",
+        "eslint": "^8.6.0"
     }
 }
