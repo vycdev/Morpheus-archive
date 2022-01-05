@@ -37,7 +37,7 @@
 
 "@discordjs/builders@^0.11.0":
   version "0.11.0"
-  resolved "https://registry.npmjs.org/@discordjs/builders/-/builders-0.11.0.tgz"
+  resolved "https://registry.yarnpkg.com/@discordjs/builders/-/builders-0.11.0.tgz#4102abe3e0cd093501f3f71931df43eb92f5b0cc"
   integrity sha512-ZTB8yJdJKrKlq44dpWkNUrAtEJEq0gqpb7ASdv4vmq6/mZal5kOv312hQ56I/vxwMre+VIkoHquNUAfnTbiYtg==
   dependencies:
     "@sindresorhus/is" "^4.2.0"
