@@ -2,7 +2,7 @@
 
 An all purpose discord bot for everyone.
 
-[Invite link](https://discord.com/api/oauth2/authorize?client_id=927533069211172885&permissions=8&scope=bot)
+[Invite link](https://discord.com/api/oauth2/authorize?client_id=927533069211172885&permissions=8&scope=bot%20applications.commands)
 
 # About
 
