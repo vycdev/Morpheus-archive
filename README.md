@@ -18,12 +18,12 @@ Please use `yarn`
 ### Scripts
 
 ```
-    "dev": "nodemon",
+    "dev": "nodemon -r dotenv/config",
     "build": "tsc",
-    "start": "node ./dist/src/index.js",
+    "start": "node ./dist/index.js",
     "lint": "eslint **/*.ts",
     "lint:fix": "eslint **/*.ts --fix",
-    "migrate": "prisma migrate dev",
+    "migrate": "prisma migrate dev --preview-feature && prisma generate",
     "deploy": "prisma migrate deploy --preview-feature",
     "studio": "prisma studio"
 ```
