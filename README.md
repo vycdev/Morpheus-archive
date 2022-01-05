@@ -39,7 +39,7 @@ Please use `yarn`
 
 ### Setting up the repository
 
-1. Create a discord bot in the discord developer portal, you can use this guide: https://discordpy.readthedocs.io/en/stable/discord.html
+1. Create a discord bot in the discord developer portal, you can use this guide [from discord.js](https://discordjs.guide/preparations/setting-up-a-bot-application.html#creating-your-bot)
 2. Make sure you have postgresql installed on your computer.
 3. In `psql` create a new user using this command: `CREATE USER morpheus WITH PASSWORD 'password' CREATEDB;`
 4. In `psql` create a new database using this command: `CREATE DATABASE morpheus OWNER morpheus;`
