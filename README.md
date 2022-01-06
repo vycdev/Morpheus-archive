@@ -2,7 +2,7 @@
 
 An all purpose discord bot for everyone.
 
-[Invite link](https://discord.com/api/oauth2/authorize?client_id=927533069211172885&permissions=8&scope=bot)
+[Invite link](https://discord.com/api/oauth2/authorize?client_id=927533069211172885&permissions=8&scope=bot%20applications.commands)
 
 # About
 
@@ -18,12 +18,12 @@ Please use `yarn`
 ### Scripts
 
 ```
-    "dev": "nodemon",
+    "dev": "nodemon -r dotenv/config",
     "build": "tsc",
-    "start": "node ./dist/src/index.js",
+    "start": "node ./dist/index.js",
     "lint": "eslint **/*.ts",
     "lint:fix": "eslint **/*.ts --fix",
-    "migrate": "prisma migrate dev",
+    "migrate": "prisma migrate dev --preview-feature && prisma generate",
     "deploy": "prisma migrate deploy --preview-feature",
     "studio": "prisma studio"
 ```
@@ -39,12 +39,12 @@ Please use `yarn`
 
 ### Setting up the repository
 
-1. Create a discord bot in the discord developer portal, you can use this guide: https://discordpy.readthedocs.io/en/stable/discord.html
+1. Create a discord bot in the discord developer portal, you can use this guide [from discord.js](https://discordjs.guide/preparations/setting-up-a-bot-application.html#creating-your-bot), and make sure you include the permission of creating slash commands when [generating the invite link for your bot](https://discordjs.guide/preparations/adding-your-bot-to-servers.html#bot-invite-links).
 2. Make sure you have postgresql installed on your computer.
 3. In `psql` create a new user using this command: `CREATE USER morpheus WITH PASSWORD 'password' CREATEDB;`
 4. In `psql` create a new database using this command: `CREATE DATABASE morpheus OWNER morpheus;`
 5. In the root directory of the repository, create a new file called `.env` and copy the contents of `default.env` in it.
-6. Add the bot token from the bot you made earlier to your `.env` file.
+6. Add the bot token from the bot you made earlier to your `.env` file as well as the guild id you want to test your bot in (If you make new slash commands this will update them faster in the server you are testing, otherwise it takes an hour for discord to update slash commands globally).
 7. Run `yarn` to install the packages, make sure you have yarn installed.
 8. Run `yarn deploy` to deploy the migrations to your database and make it up to date.
 9. You are now done, you can run `yarn dev` to start your bot. You have more information about the scripts, above.
