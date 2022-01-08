@@ -9,3 +9,36 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Guild {
+  guild_id     String  @id
+  users        User[]
+  quotes       Quote[]
+  most_xp_day  String // UNIX Time
+  most_xp_week String // UNIX Time
+}
+
+model User {
+  id               Int     @id @default(autoincrement())
+  user_id          String
+  description      String?
+  balance          Int     @default(0)
+  level            Int     @default(1)
+  xp               Int     @default(0)
+  last_xp_claim    Int     @default(0)
+  day_xp           Int     @default(0)
+  last_day_xp      Int     @default(0)
+  week_xp          Int     @default(0)
+  last_week_xp     Int     @default(0)
+  levelup_messages Boolean @default(true)
+  Guild            Guild?  @relation(fields: [guildGuild_id], references: [guild_id])
+  guildGuild_id    String?
+}
+
+model Quote {
+  id            Int     @id @default(autoincrement())
+  quote         String
+  author_id     String
+  Guild         Guild?  @relation(fields: [guildGuild_id], references: [guild_id])
+  guildGuild_id String?
+}
