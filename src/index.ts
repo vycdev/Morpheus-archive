@@ -1,20 +1,9 @@
-import { Client, Intents, Interaction } from "discord.js";
-import { SlashCommandBuilder } from "@discordjs/builders";
+import { Client, Intents } from "discord.js";
+import commands from "./commands/index";
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
-const commands = [
-    new SlashCommandBuilder().setName("ping").setDescription("test the ping")
-].map((command) => command.toJSON());
-
-const main = async () => {
-    console.info("🟡 Connecting to discord...");
-    await client.login(process.env.BOT_TOKEN);
-    console.info(`🟢 Logged in as ${client.user?.tag}`);
-
-    client.user?.setActivity("💊 m!help");
-    console.info("🟢 Bot activity has been set.");
-
+const setSlashCommands = async () => {
     console.info("🟡 Setting slash commands...");
     if (!process.env.TESTING_GUILDID) {
         await client.application?.commands.set(commands);
@@ -27,6 +16,20 @@ const main = async () => {
         ).commands.set(commands);
     }
     console.info("🟢 Slash commands have been set.");
+};
+
+const setBotActivity = () => {
+    client.user?.setActivity("💊 m!help");
+    console.info("🟢 Bot activity has been set.");
+};
+
+const main = async () => {
+    console.info("🟡 Connecting to discord...");
+    await client.login(process.env.BOT_TOKEN);
+    console.info(`🟢 Logged in as ${client.user?.tag}`);
+
+    setBotActivity();
+    setSlashCommands();
 
     console.info("🟢 The bot is up and running.");
 };
