@@ -19,11 +19,7 @@ export type Metadata = Partial<{
 }>;
 
 export type Matcher = (context: Context, match?: string) => Promise<boolean>;
-
-export type ErrorHandler<T extends object> = (
-    command: Command<T>
-) => Command<T> | void;
-
+export type LogHandler = (log: LOG) => void;
 export type Data<T extends object> = T;
 
 export type Command<T extends object> = (
@@ -34,5 +30,5 @@ export type TryCommandsFunction<T extends object> = (
     context: Context,
     matchers: Matcher[],
     commands: Command<T>[],
-    errorHandlers: ErrorHandler<T>[]
+    errorHandlers: LogHandler[]
 ) => void;
