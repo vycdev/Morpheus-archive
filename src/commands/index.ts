@@ -1,5 +1,9 @@
-import { SlashCommandBuilder } from "@discordjs/builders";
+import { sayCommand } from "./fun/say";
 
-export default [
-    new SlashCommandBuilder().setName("ping").setDescription("test the ping")
-].map((command) => command.toJSON());
+export const textCommands = [sayCommand];
+
+// import { SlashCommandBuilder } from "@discordjs/builders";
+
+// export default [
+//     new SlashCommandBuilder().setName("ping").setDescription("test the ping")
+// ].map((command) => command.toJSON());
