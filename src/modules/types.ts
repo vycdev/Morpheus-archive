@@ -3,6 +3,7 @@ import { Client, Message } from "discord.js";
 export type Context = {
     client: Client;
     message: Message;
+    content: string;
 };
 
 export type LOG = {
@@ -17,11 +18,16 @@ export type Metadata = Partial<{
     description: string;
     cooldown: number;
 }>;
-
+// A matcher returns true if the next function command/commands can be executed.
 export type Matcher = (context: Context, match?: string) => Promise<boolean>;
+// A log handler takes a log and uses the data to log it to the console or in discord.
 export type LogHandler = (log: LOG) => void;
+
 export type Data<T extends object> = T;
 
+export type ContextBuilder = (client: Client, message: Message) => Context;
+
+// A command returns a LOG if the execution wasn't successful.
 export type Command<T extends object> = (
     context: Context
 ) => [metadata: Data<T>, matchers: Matcher[], func: () => Promise<LOG | void>];
