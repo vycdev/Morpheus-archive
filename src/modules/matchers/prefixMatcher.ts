@@ -4,5 +4,5 @@ export const prefixMatcher: Matcher = async (context, match) => {
     const { message } = context;
     const prefix = message.content.split(" ")[0];
 
-    return prefix === match;
+    return prefix === "m!" + match;
 };
