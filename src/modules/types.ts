@@ -18,7 +18,7 @@ export type Metadata = Partial<{
     cooldown: number;
 }>;
 
-export type Matcher = (context: Context, match?: string) => boolean;
+export type Matcher = (context: Context, match?: string) => Promise<boolean>;
 
 export type ErrorHandler<T extends object> = (
     command: Command<T>
