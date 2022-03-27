@@ -28,11 +28,11 @@ export type Data<T extends object> = T;
 
 export type Command<T extends object> = (
     context: Context
-) => [metadata: Data<T>, matcher: Matcher, func: () => LOG | void];
+) => [metadata: Data<T>, matchers: Matcher[], func: () => Promise<LOG | void>];
 
 export type TryCommandsFunction<T extends object> = (
     context: Context,
-    matcher: Matcher,
+    matchers: Matcher[],
     commands: Command<T>[],
-    errorHandler: ErrorHandler<T>
+    errorHandlers: ErrorHandler<T>[]
 ) => void;
