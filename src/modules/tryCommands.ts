@@ -1,6 +1,6 @@
 import { Metadata, TryCommandsFunction } from "./types";
 
-export const tryCommands: TryCommandsFunction<Metadata> = async (
+export const tryCommands: TryCommandsFunction = async (
     context,
     matchers,
     commands,
