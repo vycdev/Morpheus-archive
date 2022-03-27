@@ -1,7 +1,7 @@
 import { prefixMatcher } from "../../modules/matchers/prefixMatcher";
-import { Command, Metadata } from "../../modules/types";
+import { Command } from "../../modules/types";
 
-export const sayCommand: Command<Metadata> = (context) => [
+export const sayCommand: Command = (context) => [
     {
         name: "Say",
         description: "The bot will repeat what you said.",

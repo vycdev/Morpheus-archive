@@ -28,13 +28,17 @@ export type Data<T extends object> = T;
 export type ContextBuilder = (client: Client, message: Message) => Context;
 
 // A command returns a LOG if the execution wasn't successful.
-export type Command<T extends object> = (
+export type Command = (
     context: Context
-) => [metadata: Data<T>, matchers: Matcher[], func: () => Promise<LOG | void>];
+) => [
+    metadata: Data<Metadata>,
+    matchers: Matcher[],
+    func: () => Promise<LOG | void>
+];
 
-export type TryCommandsFunction<T extends object> = (
+export type TryCommandsFunction = (
     context: Context,
     matchers: Matcher[],
-    commands: Command<T>[],
+    commands: Command[],
     errorHandlers: LogHandler[]
 ) => void;
