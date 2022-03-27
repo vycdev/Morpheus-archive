@@ -21,7 +21,8 @@ export const tryCommands: TryCommandsFunction<Metadata> = async (
             if (commandMatches) {
                 const maybeError = await func();
                 if (maybeError) {
-                    for (const handler of logHandlers) handler(maybeError);
+                    for (const handler of logHandlers)
+                        handler(maybeError, context);
                 }
             }
         }

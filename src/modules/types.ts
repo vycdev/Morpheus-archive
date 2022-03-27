@@ -21,7 +21,7 @@ export type Metadata = Partial<{
 // A matcher returns true if the next function command/commands can be executed.
 export type Matcher = (context: Context, match?: string) => Promise<boolean>;
 // A log handler takes a log and uses the data to log it to the console or in discord.
-export type LogHandler = (log: LOG) => void;
+export type LogHandler = (log: LOG, context: Context) => void;
 
 export type Data<T extends object> = T;
 
