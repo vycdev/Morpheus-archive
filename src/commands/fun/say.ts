@@ -10,14 +10,8 @@ export const sayCommand: Command<Metadata> = (context) => [
     },
     [() => prefixMatcher(context, "say")],
     async () => {
-        const { message } = context;
+        const { message, content } = context;
 
-        message.channel.send(message.content);
-
-        return {
-            code: 0,
-            info: "test",
-            type: "logToConsole"
-        };
+        message.channel.send(content);
     }
 ];
