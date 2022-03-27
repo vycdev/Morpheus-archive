@@ -6,7 +6,8 @@ import { logHandler } from "./modules/logHandler";
 import { humanMatcher } from "./modules/matchers/humanMatcher";
 import { tryCommands } from "./modules/tryCommands";
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const allIntents = new Intents(32767);
+const client = new Client({ intents: allIntents });
 
 // const setSlashCommands = async () => {
 //     console.info("🟡 Setting slash commands...");
