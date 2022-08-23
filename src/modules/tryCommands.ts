@@ -1,5 +1,5 @@
-import { errorHandler } from "./errors/errorHandler";
-import { logHandler } from "./errors/logHandler";
+import { errorHandler } from "./handlers/errorHandler";
+import { logHandler } from "./handlers/logHandler";
 import { TryCommandsFunction } from "./types";
 
 export const tryCommands: TryCommandsFunction = async (
