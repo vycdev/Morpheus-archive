@@ -1,10 +1,11 @@
-import { Metadata, TryCommandsFunction } from "./types";
+import { errorHandler } from "./errors/errorHandler";
+import { logHandler } from "./errors/logHandler";
+import { TryCommandsFunction } from "./types";
 
 export const tryCommands: TryCommandsFunction = async (
     context,
     matchers,
-    commands,
-    logHandlers
+    commands
 ) => {
     let matches = true;
     for (const matcher of matchers)
@@ -19,10 +20,13 @@ export const tryCommands: TryCommandsFunction = async (
                 commandMatches = (await matcher(context)) && matches;
 
             if (commandMatches) {
-                const maybeError = await func();
-                if (maybeError) {
-                    for (const handler of logHandlers)
-                        handler(maybeError, context);
+                try {
+                    const maybeLog = await func();
+                    if (maybeLog) {
+                        logHandler(maybeLog, context);
+                    }
+                } catch (error) {
+                    errorHandler(error, context);
                 }
             }
         }
