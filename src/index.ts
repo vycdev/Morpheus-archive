@@ -2,7 +2,6 @@ import { Client, Intents } from "discord.js";
 // import commands from "./commands/index";
 import { textCommands } from "./commands/index";
 import { contextBuilder } from "./modules/contextBuilder";
-import { logHandler } from "./modules/logHandler";
 import { humanMatcher } from "./modules/matchers/humanMatcher";
 import { tryCommands } from "./modules/tryCommands";
 
@@ -42,17 +41,17 @@ const main = async () => {
 
 client.on("messageCreate", (message) => {
     const context = contextBuilder(client, message);
-    tryCommands(context, [humanMatcher], textCommands, [logHandler]);
+    tryCommands(context, [humanMatcher], textCommands);
 });
 
-client.on("interactionCreate", async (interaction) => {
-    // Slash commands test
-    if (!interaction.isCommand()) return;
+// client.on("interactionCreate", async (interaction) => {
+//     // Slash commands test
+//     if (!interaction.isCommand()) return;
 
-    // const { commandName } = interaction;
+//     // const { commandName } = interaction;
 
-    interaction.reply("pong");
-});
+//     interaction.reply("pong");
+// });
 
 client.on("error", (err) => console.error(`🔴 ${err}`));
 main();
