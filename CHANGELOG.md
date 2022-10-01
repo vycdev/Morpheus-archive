@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/vycdev/Morpheus/compare/v1.1.0...v1.2.0) (2022-10-01)
+
+
+### Features
+
+* wrote an error handler and changed the way errors are handled for text commands ([6096c8f](https://github.com/vycdev/Morpheus/commit/6096c8fe1bae362e8028283f086e85d21de5010f))
+
 # [1.1.0](https://github.com/vycdev/Morpheus/compare/v1.0.0...v1.1.0) (2022-03-27)
 
 
