@@ -17,7 +17,7 @@ export const tryCommands: TryCommandsFunction = async (
             const [metadata, matchers, func] = command(context);
             let commandMatches = true;
             for (const matcher of matchers)
-                commandMatches = (await matcher(context)) && matches;
+                commandMatches = (await matcher(context)) && commandMatches;
 
             if (commandMatches) {
                 try {
