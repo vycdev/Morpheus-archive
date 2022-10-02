@@ -5,13 +5,14 @@ export const sayCommand: Command = (context) => [
     {
         name: "Say",
         description: "The bot will repeat what you said.",
-        suffix: "m!say",
+        usage: "m!say",
+        category: "fun",
         cooldown: 500
     },
     [() => prefixMatcher(context, "say")],
     async () => {
         const { message, content } = context;
 
-        message.channel.send(content);
+        await message.reply(content);
     }
 ];
