@@ -38,6 +38,11 @@ export type Command = (
     matchers: Matcher[],
     func: () => Promise<LOG | void>
 ];
+export type FakeCommand = () => [
+    metadata: Data<Metadata>,
+    matchers: Matcher[],
+    func: () => Promise<LOG | void>
+];
 
 export type TryCommandsFunction = (
     context: Context,
