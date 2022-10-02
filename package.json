@@ -16,7 +16,7 @@
         "studio": "prisma studio"
     },
     "dependencies": {
-        "discord.js": "^13.5.0",
+        "discord.js": "^14.5.0",
         "dotenv": "^10.0.0",
         "node": "^17.3.0"
     },
