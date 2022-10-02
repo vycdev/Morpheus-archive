@@ -14,8 +14,9 @@ export type LOG = {
 
 export type Metadata = Partial<{
     name: string;
-    suffix: string;
+    usage: string;
     description: string;
+    category: string;
     cooldown: number;
 }>;
 // A matcher returns true if the next function command/commands can be executed.
