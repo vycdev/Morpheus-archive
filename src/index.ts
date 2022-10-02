@@ -1,12 +1,12 @@
 import "dotenv/config";
-import { Client, Intents } from "discord.js";
+import { Client, IntentsBitField } from "discord.js";
 // import commands from "./commands/index";
 import { textCommands } from "./commands/index";
 import { contextBuilder } from "./modules/contextBuilder";
 import { humanMatcher } from "./modules/matchers/humanMatcher";
 import { tryCommands } from "./modules/tryCommands";
 
-const allIntents = new Intents(32767);
+const allIntents = new IntentsBitField(32767);
 const client = new Client({ intents: allIntents });
 
 // const setSlashCommands = async () => {
