@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { Client, Intents } from "discord.js";
 // import commands from "./commands/index";
 import { textCommands } from "./commands/index";

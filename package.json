@@ -6,7 +6,7 @@
     "author": "Sandu Victor <vyctor661@gmail.com>",
     "license": "MIT",
     "scripts": {
-        "dev": "nodemon -r dotenv/config",
+        "dev": "nodemon",
         "build": "tsc",
         "start": "node ./dist/index.js",
         "lint": "eslint **/*.ts",
