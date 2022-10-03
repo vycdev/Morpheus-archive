@@ -6,7 +6,7 @@
     "author": "Sandu Victor <vyctor661@gmail.com>",
     "license": "MIT",
     "scripts": {
-        "dev": "nodemon -r dotenv/config",
+        "dev": "nodemon",
         "build": "tsc",
         "start": "node ./dist/index.js",
         "lint": "eslint **/*.ts",
@@ -16,7 +16,7 @@
         "studio": "prisma studio"
     },
     "dependencies": {
-        "discord.js": "^13.5.0",
+        "discord.js": "^14.5.0",
         "dotenv": "^10.0.0",
         "node": "^17.3.0",
         "yarn": "^1.22.19"
