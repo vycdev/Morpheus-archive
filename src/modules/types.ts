@@ -12,13 +12,15 @@ export type LOG = {
     info: string;
 };
 
-export type Metadata = Partial<{
+export type Metadata = {
     name: string;
-    usage: string;
+    usage: string[];
     description: string;
+    longDescription: string;
+    usageExamples: string[];
     category: string;
     cooldown: number;
-}>;
+};
 // A matcher returns true if the next function command/commands can be executed.
 export type Matcher = (context: Context, match?: string) => Promise<boolean>;
 // A log handler takes a log and uses the data to log it to the console or in discord.
