@@ -5,9 +5,12 @@ import { textCommands } from "./commands/index";
 import { contextBuilder } from "./modules/contextBuilder";
 import { humanMatcher } from "./modules/matchers/humanMatcher";
 import { tryCommands } from "./modules/tryCommands";
+import { helpMessageInteractionHandler } from "./commands/utility/help";
 
-const allIntents = new IntentsBitField(32767);
-const client = new Client({ intents: allIntents });
+const intents = new IntentsBitField();
+intents.add(32767);
+intents.add("MessageContent");
+const client = new Client({ intents });
 
 // const setSlashCommands = async () => {
 //     console.info("🟡 Setting slash commands...");
@@ -42,17 +45,18 @@ const main = async () => {
 
 client.on("messageCreate", (message) => {
     const context = contextBuilder(client, message);
+
     tryCommands(context, [humanMatcher], textCommands);
 });
+client.on("interactionCreate", (interaction) => {
+    helpMessageInteractionHandler(interaction);
+    //     // Slash commands test
+    //     if (!interaction.isCommand()) return;
 
-// client.on("interactionCreate", async (interaction) => {
-//     // Slash commands test
-//     if (!interaction.isCommand()) return;
+    //     // const { commandName } = interaction;
 
-//     // const { commandName } = interaction;
-
-//     interaction.reply("pong");
-// });
+    //     interaction.reply("pong");
+});
 
 client.on("error", (err) => console.error(`🔴 ${err}`));
 main();
