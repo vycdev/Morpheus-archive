@@ -1,3 +1,15 @@
+# [1.3.0](https://github.com/vycdev/Morpheus/compare/v1.2.0...v1.3.0) (2022-10-03)
+
+
+### Bug Fixes
+
+* command matching, this couldve created some problems if I had multiple matchers in one command ([e37ee0d](https://github.com/vycdev/Morpheus/commit/e37ee0d4227ee26a25fc503a3f1644ea85e58361))
+
+
+### Features
+
+* added help command in the style of the fmbot help command featuring a select menu for categories and individual commands that is automatically generated ([d27fed6](https://github.com/vycdev/Morpheus/commit/d27fed6adb5fb0f39fd1054239b44ac007a4c493))
+
 # [1.2.0](https://github.com/vycdev/Morpheus/compare/v1.1.0...v1.2.0) (2022-10-01)
 
 
