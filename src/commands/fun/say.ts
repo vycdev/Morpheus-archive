@@ -5,7 +5,10 @@ export const sayCommand: Command = (context) => [
     {
         name: "Say",
         description: "The bot will repeat what you said.",
-        usage: "m!say",
+        longDescription:
+            "The message sent by the bot will be a reply to your original message.",
+        usage: ["m!say"],
+        usageExamples: ["m!say Hello"],
         category: "Fun",
         cooldown: 500
     },
