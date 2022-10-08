@@ -1,3 +1,15 @@
+# [1.4.0](https://github.com/vycdev/Morpheus/compare/v1.3.0...v1.4.0) (2022-10-08)
+
+
+### Bug Fixes
+
+* Added a way to handle edge cases when outdated intreactions are used to avoid interaction failed error. ([5d95739](https://github.com/vycdev/Morpheus/commit/5d957396e0d46352f85463fdad45c6f6f6b8048b))
+
+
+### Features
+
+* command cooldowns are now working ([8c7ff39](https://github.com/vycdev/Morpheus/commit/8c7ff39c8172efebf0485cb061296cae847bf3e1))
+
 # [1.3.0](https://github.com/vycdev/Morpheus/compare/v1.2.0...v1.3.0) (2022-10-03)
 
 
