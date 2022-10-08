@@ -1,3 +1,20 @@
+# [1.5.0](https://github.com/vycdev/Morpheus/compare/v1.4.0...v1.5.0) (2022-10-08)
+
+
+### Bug Fixes
+
+* the context builder making the content be the prefix if there was nothing that followed the prefix of the command ([e3f520d](https://github.com/vycdev/Morpheus/commit/e3f520d22f60ba87720e5ca48dfd1933cab7f063))
+* the prefix matcher was totaly broken ([661cae9](https://github.com/vycdev/Morpheus/commit/661cae9a478612a97ba35ef3948a93e58045e52d))
+
+
+### Features
+
+* changing the style of the log handler code showing in discord ([9a28dec](https://github.com/vycdev/Morpheus/commit/9a28dec21d12dcf64eb590bac25d4807587b07bf))
+* copy pasta command that pulls copy pastas from reddit ([f37f6a2](https://github.com/vycdev/Morpheus/commit/f37f6a2a9ce9a6df2d73f3eff40de4aac382265d))
+* joke command that pulls jokes from reddit ([f0c7f30](https://github.com/vycdev/Morpheus/commit/f0c7f308fa9a9d87e7131e5ea92f068eff60e564))
+* the say command throwing an error if the user doesnt provide any arguments ([68acc6c](https://github.com/vycdev/Morpheus/commit/68acc6c4683be11b51fe56c8868cce78c802ccde))
+* until xmas command added ([d1684be](https://github.com/vycdev/Morpheus/commit/d1684be4af1f6d4ef7417a631b059ee8bbbde9fb))
+
 # [1.4.0](https://github.com/vycdev/Morpheus/compare/v1.3.0...v1.4.0) (2022-10-08)
 
 
