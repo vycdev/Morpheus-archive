@@ -1,12 +1,20 @@
 import { Matcher } from "../types";
 
+const symbols = ["-", "."];
+
 export const prefixMatcher: Matcher = async (context, match) => {
     if (!match) return false;
     const { message } = context;
-    const prefix = message.content.split(" ")[0];
+    const messagePrefix = message.content.split(" ")[0];
 
-    let isMatching = true;
-    for (const m of match) isMatching = isMatching && "m!" + m === prefix;
+    const prefixToMatch = match.map((m) => "m!" + m);
 
-    return isMatching;
+    const regex = new RegExp(
+        `^(${prefixToMatch.join(
+            "|"
+        )})([^\\w]|$)( |[\\w]|(<@!?\\d+>)|${symbols.join("|")})*$`,
+        "i"
+    );
+
+    return !!messagePrefix.match(regex);
 };
