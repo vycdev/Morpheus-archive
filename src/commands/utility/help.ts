@@ -139,6 +139,7 @@ export const helpMessageInteractionHandler = async (
                 )
             ]
         });
+        return;
     }
     if (interaction.customId === "selectHelpCommand") {
         console.log(interaction.values);
@@ -161,7 +162,14 @@ export const helpMessageInteractionHandler = async (
                 )
             ]
         });
+        return;
     }
+    interaction.message.edit({
+        content:
+            "**This interaction is outdated, try to use the help command again.**.",
+        embeds: [],
+        components: []
+    });
     return;
 };
 
