@@ -5,8 +5,7 @@ import {
     SelectMenuBuilder,
     Interaction,
     CacheType,
-    EmbedBuilder,
-    SelectMenuInteraction
+    EmbedBuilder
 } from "discord.js";
 
 import { textCommands } from "../index";
