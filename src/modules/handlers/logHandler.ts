@@ -6,7 +6,7 @@ export const logHandler: LogHandler = (maybeError, context) => {
     switch (type) {
         case "logToBoth":
             console.log(`[${code}]: ${info}`);
-            context.message.reply(`[${code}]: ${info}`);
+            context.message.reply(`**[${code}]**: ${info}`);
             break;
 
         case "logToConsole":
@@ -14,7 +14,7 @@ export const logHandler: LogHandler = (maybeError, context) => {
             break;
 
         case "logToDiscord":
-            context.message.reply(`[${code}]: ${info}`);
+            context.message.reply(`**[${code}]**: ${info}`);
             break;
 
         default:
