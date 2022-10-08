@@ -2,7 +2,7 @@ import "dotenv/config";
 import { Client, IntentsBitField } from "discord.js";
 // import commands from "./commands/index";
 import { textCommands } from "./commands/index";
-import { contextBuilder } from "./modules/contextBuilder";
+import { contextBuilder } from "./modules/helpers/contextBuilder";
 import { humanMatcher } from "./modules/matchers/humanMatcher";
 import { tryCommands } from "./modules/tryCommands";
 import { helpMessageInteractionHandler } from "./commands/utility/help";

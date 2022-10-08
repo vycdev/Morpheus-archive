@@ -1,4 +1,4 @@
-import { ContextBuilder } from "./types";
+import { ContextBuilder } from "../types";
 
 export const contextBuilder: ContextBuilder = (client, message) => {
     return {

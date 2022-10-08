@@ -5,8 +5,7 @@ import {
     SelectMenuBuilder,
     Interaction,
     CacheType,
-    EmbedBuilder,
-    SelectMenuInteraction
+    EmbedBuilder
 } from "discord.js";
 
 import { textCommands } from "../index";
@@ -140,6 +139,7 @@ export const helpMessageInteractionHandler = async (
                 )
             ]
         });
+        return;
     }
     if (interaction.customId === "selectHelpCommand") {
         console.log(interaction.values);
@@ -162,7 +162,14 @@ export const helpMessageInteractionHandler = async (
                 )
             ]
         });
+        return;
     }
+    interaction.message.edit({
+        content:
+            "**This interaction is outdated, try to use the help command again.**.",
+        embeds: [],
+        components: []
+    });
     return;
 };
 
@@ -175,7 +182,7 @@ export const helpCommand: Command = (context) => [
         usage: ["m!help"],
         usageExamples: ["m!help"],
         category: "Utility",
-        cooldown: 500
+        cooldown: 15000
     },
     [() => prefixMatcher(context, "help")],
     async () => {
