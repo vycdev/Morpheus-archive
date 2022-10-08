@@ -94,7 +94,6 @@ const generateCommandEmbed = (command: FakeCommand) => {
         .setColor(0x03adfc)
         .setTitle(metadata.name)
         .setDescription(embedDescription);
-    console.log(embed);
 
     return embed;
 };
@@ -142,7 +141,6 @@ export const helpMessageInteractionHandler = async (
         return;
     }
     if (interaction.customId === "selectHelpCommand") {
-        console.log(interaction.values);
         const command = (textCommands as FakeCommand[]).filter((command) => {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const [metadata, matchers, func] = command();
@@ -184,7 +182,7 @@ export const helpCommand: Command = (context) => [
         category: "Utility",
         cooldown: 15000
     },
-    [() => prefixMatcher(context, "help")],
+    [() => prefixMatcher(context, ["help"])],
     async () => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { message, content } = context;
