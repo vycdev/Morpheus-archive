@@ -184,7 +184,7 @@ export const helpCommand: Command = (context) => [
         category: "Utility",
         cooldown: 15000
     },
-    [() => prefixMatcher(context, "help")],
+    [() => prefixMatcher(context, ["help"])],
     async () => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { message, content } = context;

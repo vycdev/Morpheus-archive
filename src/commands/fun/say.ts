@@ -12,7 +12,7 @@ export const sayCommand: Command = (context) => [
         category: "Fun",
         cooldown: 3000
     },
-    [() => prefixMatcher(context, "say")],
+    [() => prefixMatcher(context, ["say"])],
     async () => {
         const { message, content } = context;
 
