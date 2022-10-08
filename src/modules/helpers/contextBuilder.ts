@@ -1,9 +1,12 @@
 import { ContextBuilder } from "../types";
 
 export const contextBuilder: ContextBuilder = (client, message) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [prefix, ...content] = message.content.split(" ");
+
     return {
         client,
         message,
-        content: message.content.substring(message.content.indexOf(" ") + 1)
+        content: content.join(" ")
     };
 };
