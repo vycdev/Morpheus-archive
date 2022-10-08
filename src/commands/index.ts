@@ -1,8 +1,14 @@
 import { copyPastaCommand } from "./fun/copyPasta";
+import { jokeCommand } from "./fun/joke";
 import { sayCommand } from "./fun/say";
 import { helpCommand } from "./utility/help";
 
-export const textCommands = [sayCommand, helpCommand, copyPastaCommand];
+export const textCommands = [
+    sayCommand,
+    helpCommand,
+    copyPastaCommand,
+    jokeCommand
+];
 
 // import { SlashCommandBuilder } from "@discordjs/builders";
 
