@@ -174,7 +174,7 @@ export const helpCommand: Command = (context) => [
         usage: ["m!help"],
         usageExamples: ["m!help"],
         category: "Utility",
-        cooldown: 500
+        cooldown: 15000
     },
     [() => prefixMatcher(context, "help")],
     async () => {

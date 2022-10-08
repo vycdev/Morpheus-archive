@@ -10,7 +10,7 @@ export const sayCommand: Command = (context) => [
         usage: ["m!say"],
         usageExamples: ["m!say Hello"],
         category: "Fun",
-        cooldown: 500
+        cooldown: 3000
     },
     [() => prefixMatcher(context, "say")],
     async () => {
