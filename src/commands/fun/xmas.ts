@@ -1,4 +1,3 @@
-import { logHandler } from "../../modules/handlers/logHandler";
 import { prefixMatcher } from "../../modules/matchers/prefixMatcher";
 import { Command } from "../../modules/types";
 
