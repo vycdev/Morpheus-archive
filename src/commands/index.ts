@@ -2,6 +2,7 @@ import { Context } from "../modules/types";
 import { copyPastaCommand } from "./fun/copyPasta";
 import { jokeCommand } from "./fun/joke";
 import { sayCommand } from "./fun/say";
+import { screamCommand } from "./fun/scream";
 import { xmasCommand } from "./fun/xmas";
 import { helpCommand } from "./utility/help";
 
@@ -10,7 +11,8 @@ export const textCommands = [
     helpCommand,
     copyPastaCommand,
     jokeCommand,
-    xmasCommand
+    xmasCommand,
+    screamCommand
 ];
 
 export const commandsMetadata = textCommands.map((v) => {
