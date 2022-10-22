@@ -1,5 +1,5 @@
 import { prefixMatcher } from "../../modules/matchers/prefixMatcher";
-import { Command, FakeCommand } from "../../modules/types";
+import { Command, Metadata } from "../../modules/types";
 import {
     ActionRowBuilder,
     SelectMenuBuilder,
@@ -8,19 +8,10 @@ import {
     EmbedBuilder
 } from "discord.js";
 
-import { textCommands } from "../index";
+import { commandsMetadata } from "../index";
 
 const getCommandCategories = () => {
-    const categories = [
-        ...new Set(
-            (textCommands as FakeCommand[]).map((command) => {
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                const [metadata, matchers, func] = command();
-
-                return metadata.category;
-            })
-        )
-    ];
+    const categories = [...new Set(commandsMetadata.map((v) => v.category))];
     return categories;
 };
 
@@ -43,10 +34,7 @@ const generateCategoriesComponent = (placeholder: string) => {
 };
 
 const generateCommandsComponent = (placeholder: string, category: string) => {
-    const categoryCommands = getCommandsByCategory(category).map((command) => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const [metadata, matchers, func] = command();
-
+    const categoryCommands = getCommandsByCategory(category).map((metadata) => {
         return {
             label: metadata.name,
             description: metadata.description,
@@ -64,22 +52,12 @@ const generateCommandsComponent = (placeholder: string, category: string) => {
 };
 
 const getCommandsByCategory = (category: string) => {
-    const commands = (textCommands as FakeCommand[]).filter((command) => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const [metadata, matchers, func] = command();
-        if (category === metadata.category) {
-            return true;
-        } else {
-            return false;
-        }
-    });
+    const commands = commandsMetadata.filter((v) => category === v.category);
 
     return commands;
 };
 
-const generateCommandEmbed = (command: FakeCommand) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [metadata, matchers, func] = command();
+const generateCommandEmbed = (metadata: Metadata) => {
     const embedDescription = `**Description**\n ${
         metadata.description
     }\n**Extra**\n${
@@ -99,18 +77,10 @@ const generateCommandEmbed = (command: FakeCommand) => {
 };
 
 const generateCategoryEmbed = (category: string) => {
-    const commands = (textCommands as FakeCommand[]).filter((command) => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const [metadata, matchers, func] = command();
+    const commands = commandsMetadata.filter((v) => category === v.category);
 
-        if (category === metadata.category) return true;
-        else return false;
-    });
     const embedDescription = commands
-        .map((command) => {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const [metadata, matchers, func] = command();
-
+        .map((metadata) => {
             return `\`${metadata.usage}\` | ${metadata.description}`;
         })
         .join("\n");
@@ -141,23 +111,16 @@ export const helpMessageInteractionHandler = async (
         return;
     }
     if (interaction.customId === "selectHelpCommand") {
-        const command = (textCommands as FakeCommand[]).filter((command) => {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const [metadata, matchers, func] = command();
+        const command = commandsMetadata.filter(
+            (v) => v.name === interaction.values[0]
+        )[0];
 
-            return metadata.name === interaction.values[0];
-        })[0];
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const [commandMetadata, commandMatchers, commandFunc] = command();
         const embed = generateCommandEmbed(command);
         interaction.update({
             embeds: [embed],
             components: [
-                generateCategoriesComponent(commandMetadata.category),
-                generateCommandsComponent(
-                    commandMetadata.name,
-                    commandMetadata.category
-                )
+                generateCategoriesComponent(command.category),
+                generateCommandsComponent(command.name, command.category)
             ]
         });
         return;
