@@ -1,5 +1,5 @@
 import { prefixMatcher } from "../../modules/matchers/prefixMatcher";
-import { Command } from "../../modules/types";
+import { Command } from "../../modules/types/types";
 
 export const timeCommand: Command = (context) => [
     {

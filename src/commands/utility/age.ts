@@ -1,5 +1,5 @@
 import { prefixMatcher } from "../../modules/matchers/prefixMatcher";
-import { Command } from "../../modules/types";
+import { Command } from "../../modules/types/types";
 import { ymwdhms } from "../../modules/helpers/millisecondsToDateTime";
 
 export const ageCommand: Command = (context) => [

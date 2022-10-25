@@ -1,4 +1,4 @@
-import { ErrorHandler } from "../types";
+import { ErrorHandler } from "../types/types";
 
 export const errorHandler: ErrorHandler = (error: Error | unknown, context) => {
     if (error instanceof Error) console.error(error);

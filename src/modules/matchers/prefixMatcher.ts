@@ -1,4 +1,4 @@
-import { Matcher } from "../types";
+import { Matcher } from "../types/types";
 
 const symbols = ["-", "."];
 

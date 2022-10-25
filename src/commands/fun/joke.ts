@@ -1,6 +1,6 @@
 import { EmbedBuilder } from "discord.js";
 import { prefixMatcher } from "../../modules/matchers/prefixMatcher";
-import { Command } from "../../modules/types";
+import { Command } from "../../modules/types/types";
 import fetch from "node-fetch";
 
 let loopIt = 0;

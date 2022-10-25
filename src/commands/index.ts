@@ -1,4 +1,4 @@
-import { Context } from "../modules/types";
+import { Context } from "../modules/types/types";
 import { copyPastaCommand } from "./fun/copyPasta";
 import { jokeCommand } from "./fun/joke";
 import { sayCommand } from "./fun/say";

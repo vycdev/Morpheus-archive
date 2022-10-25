@@ -1,5 +1,5 @@
 import { prefixMatcher } from "../../modules/matchers/prefixMatcher";
-import { Command, Metadata } from "../../modules/types";
+import { Command, Metadata } from "../../modules/types/types";
 import {
     ActionRowBuilder,
     SelectMenuBuilder,

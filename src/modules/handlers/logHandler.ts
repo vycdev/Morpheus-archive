@@ -1,4 +1,4 @@
-import { LogHandler } from "../types";
+import { LogHandler } from "../types/types";
 
 export const logHandler: LogHandler = (maybeError, context) => {
     const { info, code, type } = maybeError;
