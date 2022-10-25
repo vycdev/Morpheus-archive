@@ -7,9 +7,19 @@ import { humanMatcher } from "./modules/matchers/humanMatcher";
 import { tryCommands } from "./modules/tryCommands";
 import { helpMessageInteractionHandler } from "./commands/utility/help";
 
+import { PrismaClient } from "@prisma/client";
+import { initGuild } from "./modules/passives/initialisers/initGuild";
+import { initUser } from "./modules/passives/initialisers/initUser";
+import { initUsersXp } from "./modules/passives/initialisers/initUsersXp";
+import { initXpDays } from "./modules/passives/initialisers/initXpDays";
+import { claimXp } from "./modules/passives/claimXp";
+
+export const prisma = new PrismaClient();
+
 const intents = new IntentsBitField();
-intents.add(32767);
+intents.add(32767); // Fix this please.
 intents.add("MessageContent");
+
 const client = new Client({ intents });
 
 // const setSlashCommands = async () => {
@@ -46,8 +56,20 @@ const main = async () => {
 client.on("messageCreate", (message) => {
     const context = contextBuilder(client, message);
 
+    // rlly annoying when the data in the db gets deleted
+    // and I have to manually add this line of code again
+    // because I dont want to reinvite the bot in the server
+    if (message.guild && process.env.NODE_ENV === "development")
+        initGuild(message.guild);
+
+    initUser(context); // need some optimisation with these db functions
+    initUsersXp(context); // well I guess they are good enough
+    initXpDays(context); // for now
+    claimXp(context);
+
     tryCommands(context, [humanMatcher], textCommands);
 });
+
 client.on("interactionCreate", (interaction) => {
     helpMessageInteractionHandler(interaction);
     //     // Slash commands test
@@ -56,6 +78,10 @@ client.on("interactionCreate", (interaction) => {
     //     // const { commandName } = interaction;
 
     //     interaction.reply("pong");
+});
+
+client.on("guildCreate", (guild) => {
+    initGuild(guild);
 });
 
 client.on("error", (err) => console.error(`🔴 ${err}`));

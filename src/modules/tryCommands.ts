@@ -1,7 +1,7 @@
 import { errorHandler } from "./handlers/errorHandler";
 import { logHandler } from "./handlers/logHandler";
 import { hasCooldown } from "./helpers/commandCooldowns";
-import { TryCommandsFunction } from "./types";
+import { TryCommandsFunction } from "./types/types";
 
 export const tryCommands: TryCommandsFunction = async (
     context,

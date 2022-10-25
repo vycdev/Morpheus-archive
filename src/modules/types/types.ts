@@ -22,7 +22,7 @@ export type Metadata = {
     cooldown: number;
 };
 // A matcher returns true if the next function command/commands can be executed.
-export type Matcher = (context: Context, match?: string[]) => Promise<boolean>;
+export type Matcher<T> = (context: Context, match?: T) => Promise<boolean>;
 // A log handler takes a log and uses the data to log it to the console or in discord.
 export type LogHandler = (maybeLog: LOG, context: Context) => void;
 export type ErrorHandler = (error: Error | unknown, context: Context) => void;
@@ -37,17 +37,12 @@ export type Command = (
     context: Context
 ) => [
     metadata: Data<Metadata>,
-    matchers: Matcher[],
-    func: () => Promise<LOG | void>
-];
-export type FakeCommand = () => [
-    metadata: Data<Metadata>,
-    matchers: Matcher[],
+    matchers: Matcher<string[]>[],
     func: () => Promise<LOG | void>
 ];
 
 export type TryCommandsFunction = (
     context: Context,
-    matchers: Matcher[],
+    matchers: Matcher<void>[],
     commands: Command[]
 ) => void;

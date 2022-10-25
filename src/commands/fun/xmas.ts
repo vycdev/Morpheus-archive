@@ -1,6 +1,5 @@
-import { logHandler } from "../../modules/handlers/logHandler";
 import { prefixMatcher } from "../../modules/matchers/prefixMatcher";
-import { Command } from "../../modules/types";
+import { Command } from "../../modules/types/types";
 
 const timeTillChristmas = (year: number): string => {
     const today = new Date();

@@ -1,8 +1,8 @@
-import { Matcher } from "../types";
+import { Matcher } from "../types/types";
 
 const symbols = ["-", "."];
 
-export const prefixMatcher: Matcher = async (context, match) => {
+export const prefixMatcher: Matcher<string[]> = async (context, match) => {
     if (!match) return false;
     const { message } = context;
     const messagePrefix = message.content.split(" ")[0];

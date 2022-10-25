@@ -2,44 +2,86 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
-model Guild {
-  guild_id     String  @id
-  users        User[]
-  quotes       Quote[]
-  prefix       String?
-  most_xp_day  String // UNIX Time
-  most_xp_week String // UNIX Time
+model Guilds {
+    // Primary key
+    guild_id String         @id
+    // Data
+    prefix   String         @default("m!")
+    // Relations
+    quotes   Quotes[]
+    usersxp  UserProfiles[]
+    Motds    Motds[]
 }
 
-model User {
-  id               Int     @id @default(autoincrement())
-  user_id          String
-  description      String?
-  balance          Int     @default(0)
-  level            Int     @default(1)
-  xp               Int     @default(0)
-  last_xp_claim    Int     @default(0)
-  day_xp           Int     @default(0)
-  last_day_xp      Int     @default(0)
-  week_xp          Int     @default(0)
-  last_week_xp     Int     @default(0)
-  levelup_messages Boolean @default(true)
-  Guild            Guild?  @relation(fields: [guildGuild_id], references: [guild_id])
-  guildGuild_id    String?
+model Users {
+    // id               Int      @id @default(autoincrement())
+    // Primary key
+    user_id  String         @id
+    // Data
+    user_tag String // Needs to be updated from time to time, so its easier to find users in the database table.
+    // Relations
+    quotes   Quotes[]
+    usersxp  UserProfiles[]
+    Motds    Motds[]
 }
 
-model Quote {
-  id            Int     @id @default(autoincrement())
-  quote         String
-  author_id     String
-  Guild         Guild?  @relation(fields: [guildGuild_id], references: [guild_id])
-  guildGuild_id String?
+model UserProfiles {
+    // Primary key
+    id               Int      @id @default(autoincrement())
+    // Data
+    balance          Int      @default(0)
+    levelup_messages Boolean  @default(true)
+    // Foreign keys
+    usersUser_id     String
+    guildsGuild_id   String
+    Users            Users    @relation(fields: [usersUser_id], references: [user_id])
+    Guilds           Guilds   @relation(fields: [guildsGuild_id], references: [guild_id])
+    // Relations
+    XpDays           XpDays[] // determine the level based on total xp, determine the total xp based on xpdays
+}
+
+model XpDays {
+    // Primary key
+    id           Int      @id @default(autoincrement())
+    // Data
+    day          DateTime @default(now())
+    xp           Int      @default(0)
+    timesClaimed Int      @default(0)
+    lastClaimed  DateTime @default(now())
+
+    // Foreign keys
+    UsersXp   UserProfiles @relation(fields: [usersXpId], references: [id])
+    usersXpId Int
+}
+
+model Quotes {
+    // Primary key
+    id            Int    @id @default(autoincrement())
+    // Data
+    quote         String
+    // Foreign keys
+    guildGuild_id String
+    userUser_id   String
+    Guild         Guilds @relation(fields: [guildGuild_id], references: [guild_id])
+    User          Users  @relation(fields: [userUser_id], references: [user_id])
+}
+
+model Motds {
+    // Primary key
+    id            Int    @id @default(autoincrement())
+    // Data
+    motd          String
+    // Foreign keys
+    guildGuild_id String
+    userUser_id   String
+    Guild         Guilds @relation(fields: [guildGuild_id], references: [guild_id])
+    User          Users  @relation(fields: [userUser_id], references: [user_id])
 }

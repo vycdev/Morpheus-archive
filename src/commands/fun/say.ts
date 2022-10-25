@@ -1,6 +1,6 @@
 import { logHandler } from "../../modules/handlers/logHandler";
 import { prefixMatcher } from "../../modules/matchers/prefixMatcher";
-import { Command } from "../../modules/types";
+import { Command } from "../../modules/types/types";
 
 export const sayCommand: Command = (context) => [
     {
@@ -27,16 +27,6 @@ export const sayCommand: Command = (context) => [
             );
             return;
         }
-
-        logHandler(
-            {
-                code: 0,
-                info: `${context.message.author.username} has used the say command.`,
-                type: "logToConsole"
-            },
-            context
-        );
-
         await message.reply(content);
     }
 ];

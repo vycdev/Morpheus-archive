@@ -1,4 +1,4 @@
-import { ContextBuilder } from "../types";
+import { ContextBuilder } from "../types/types";
 
 export const contextBuilder: ContextBuilder = (client, message) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
