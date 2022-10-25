@@ -1,4 +1,4 @@
-import { UsersXp } from "@prisma/client";
+import { UserProfiles } from "@prisma/client";
 import { prisma } from "../..";
 
 const xpMultiplier = parseInt(process.env.XP_MULTIPLIER || "1");
@@ -14,7 +14,7 @@ export const xpGain = (level: number) =>
     (Math.floor(Math.random() * 10) + 1 + Math.floor(Math.sqrt(level))) *
     xpMultiplier;
 
-export const totalXpGuild = async (userxp: UsersXp) => {
+export const totalXpGuild = async (userxp: UserProfiles) => {
     const xpDays = await prisma.xpDays.findMany({
         where: {
             usersXpId: userxp.id
@@ -29,7 +29,7 @@ export const totalXpGuild = async (userxp: UsersXp) => {
 };
 
 export const totalXpUser = async (userid: string) => {
-    const usersxp = await prisma.usersXp.findMany({
+    const usersxp = await prisma.userProfiles.findMany({
         where: {
             usersUser_id: userid
         }

@@ -6,7 +6,7 @@ const balanceMultiplier = parseInt(process.env.BALANCE_MULTIPLIER || "1");
 const updateBalance = async (context: Context, level: number) => {
     if (!context.message.guild) return; // Something would have to be very wrong to return here.
 
-    const userxp = await prisma.usersXp.findFirst({
+    const userxp = await prisma.userProfiles.findFirst({
         where: {
             guildsGuild_id: context.message.guild.id,
             usersUser_id: context.message.author.id
@@ -18,7 +18,7 @@ const updateBalance = async (context: Context, level: number) => {
         userxp.balance +
         Math.floor(level * Math.sqrt(level)) * balanceMultiplier;
 
-    await prisma.usersXp.update({
+    await prisma.userProfiles.update({
         where: {
             id: userxp.id
         },

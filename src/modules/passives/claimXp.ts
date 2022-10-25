@@ -9,7 +9,7 @@ const claimCooldown = parseInt(process.env.XP_CLAIM_COOLDOWN_MS || "60000");
 export const claimXp = async (context: Context) => {
     if (!(await humanMatcher(context))) return;
     if (!context.message.guild) return;
-    const usersxp = await prisma.usersXp.findFirst({
+    const usersxp = await prisma.userProfiles.findFirst({
         where: {
             usersUser_id: context.message.author.id,
             guildsGuild_id: context.message.guild.id

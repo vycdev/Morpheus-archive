@@ -5,7 +5,7 @@ import { Context } from "../../types/types";
 export const initXpDays = async (context: Context) => {
     if (!(await humanMatcher(context))) return;
     if (!context.message.guild) return;
-    const userxp = await prisma.usersXp.findFirst({
+    const userxp = await prisma.userProfiles.findFirst({
         where: {
             usersUser_id: context.message.author.id,
             guildsGuild_id: context.message.guild.id

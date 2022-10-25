@@ -12,28 +12,28 @@ datasource db {
 
 model Guilds {
     // Primary key
-    guild_id String    @id
+    guild_id String         @id
     // Data
-    prefix   String    @default("m!")
+    prefix   String         @default("m!")
     // Relations
     quotes   Quotes[]
-    usersxp  UsersXp[]
+    usersxp  UserProfiles[]
     Motds    Motds[]
 }
 
 model Users {
     // id               Int      @id @default(autoincrement())
     // Primary key
-    user_id  String    @id
+    user_id  String         @id
     // Data
     user_tag String // Needs to be updated from time to time, so its easier to find users in the database table.
     // Relations
     quotes   Quotes[]
-    usersxp  UsersXp[]
+    usersxp  UserProfiles[]
     Motds    Motds[]
 }
 
-model UsersXp {
+model UserProfiles {
     // Primary key
     id               Int      @id @default(autoincrement())
     // Data
@@ -58,7 +58,7 @@ model XpDays {
     lastClaimed  DateTime @default(now())
 
     // Foreign keys
-    UsersXp   UsersXp @relation(fields: [usersXpId], references: [id])
+    UsersXp   UserProfiles @relation(fields: [usersXpId], references: [id])
     usersXpId Int
 }
 
