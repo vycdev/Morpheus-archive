@@ -10,11 +10,14 @@ import { helpMessageInteractionHandler } from "./commands/utility/help";
 import { PrismaClient } from "@prisma/client";
 import { initGuild } from "./modules/passives/initGuild";
 import { initUser } from "./modules/passives/initUser";
+import { initUsersXp } from "./modules/passives/initUsersXp";
+
 export const prisma = new PrismaClient();
 
 const intents = new IntentsBitField();
 intents.add(32767); // Fix this please.
 intents.add("MessageContent");
+
 const client = new Client({ intents });
 
 // const setSlashCommands = async () => {
@@ -51,6 +54,7 @@ const main = async () => {
 client.on("messageCreate", (message) => {
     const context = contextBuilder(client, message);
     initUser(context);
+    initUsersXp(context);
     tryCommands(context, [humanMatcher], textCommands);
 });
 
