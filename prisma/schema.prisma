@@ -52,12 +52,15 @@ model UsersXp {
 
 model XpDays {
     // Primary key
-    id        Int      @id @default(autoincrement())
+    id           Int      @id @default(autoincrement())
     // Data
-    day       DateTime
-    xp        Int
+    day          DateTime @default(now())
+    xp           Int      @default(0)
+    timesClaimed Int      @default(0)
+    lastClaimed  DateTime @default(now())
+
     // Foreign keys
-    UsersXp   UsersXp  @relation(fields: [usersXpId], references: [id])
+    UsersXp   UsersXp @relation(fields: [usersXpId], references: [id])
     usersXpId Int
 }
 
