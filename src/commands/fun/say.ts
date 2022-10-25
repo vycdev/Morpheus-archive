@@ -27,16 +27,6 @@ export const sayCommand: Command = (context) => [
             );
             return;
         }
-
-        logHandler(
-            {
-                code: 0,
-                info: `${context.message.author.username} has used the say command.`,
-                type: "logToConsole"
-            },
-            context
-        );
-
         await message.reply(content);
     }
 ];
