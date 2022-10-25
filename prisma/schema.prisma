@@ -12,15 +12,13 @@ datasource db {
 
 model Guilds {
     // Primary key
-    guild_id     String    @id
+    guild_id String    @id
     // Data
-    prefix       String    @default("m!")
-    most_xp_day  String // UNIX Time
-    most_xp_week String // UNIX Time
+    prefix   String    @default("m!")
     // Relations
-    quotes       Quotes[]
-    usersxp      UsersXp[]
-    Motds        Motds[]
+    quotes   Quotes[]
+    usersxp  UsersXp[]
+    Motds    Motds[]
 }
 
 model Users {
@@ -38,17 +36,29 @@ model Users {
 
 model UsersXp {
     // Primary key
-    id               Int     @id @default(autoincrement())
+    id               Int      @id @default(autoincrement())
     // Data
-    level            Int     @default(1)
-    balance          Int     @default(0)
-    xp               Int     @default(0)
-    levelup_messages Boolean @default(true)
+    balance          Int      @default(0)
+    lastxpclaim      DateTime @default(now())
+    levelup_messages Boolean  @default(true)
     // Foreign keys
     usersUser_id     String
     guildsGuild_id   String
-    Users            Users   @relation(fields: [usersUser_id], references: [user_id])
-    Guilds           Guilds  @relation(fields: [guildsGuild_id], references: [guild_id])
+    Users            Users    @relation(fields: [usersUser_id], references: [user_id])
+    Guilds           Guilds   @relation(fields: [guildsGuild_id], references: [guild_id])
+    // Relations
+    XpDays           XpDays[] // determine the level based on total xp, determine the total xp based on xpdays
+}
+
+model XpDays {
+    // Primary key
+    id        Int      @id @default(autoincrement())
+    // Data
+    day       DateTime
+    xp        Int
+    // Foreign keys
+    UsersXp   UsersXp  @relation(fields: [usersXpId], references: [id])
+    usersXpId Int
 }
 
 model Quotes {
