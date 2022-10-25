@@ -24,14 +24,13 @@ model Guilds {
 model Users {
     // id               Int      @id @default(autoincrement())
     // Primary key
-    user_id     String    @id
+    user_id  String    @id
     // Data
-    user_tag    String // Needs to be updated from time to time, so its easier to find users in the database table.
-    description String?
+    user_tag String // Needs to be updated from time to time, so its easier to find users in the database table.
     // Relations
-    quotes      Quotes[]
-    usersxp     UsersXp[]
-    Motds       Motds[]
+    quotes   Quotes[]
+    usersxp  UsersXp[]
+    Motds    Motds[]
 }
 
 model UsersXp {
