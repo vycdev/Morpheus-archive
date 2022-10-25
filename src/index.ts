@@ -11,6 +11,7 @@ import { PrismaClient } from "@prisma/client";
 import { initGuild } from "./modules/passives/initGuild";
 import { initUser } from "./modules/passives/initUser";
 import { initUsersXp } from "./modules/passives/initUsersXp";
+import { initXpDays } from "./modules/passives/initXpDays";
 
 export const prisma = new PrismaClient();
 
@@ -55,6 +56,7 @@ client.on("messageCreate", (message) => {
     const context = contextBuilder(client, message);
     initUser(context);
     initUsersXp(context);
+    initXpDays(context);
     tryCommands(context, [humanMatcher], textCommands);
 });
 
