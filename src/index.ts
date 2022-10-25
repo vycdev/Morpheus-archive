@@ -12,6 +12,7 @@ import { initGuild } from "./modules/passives/initialisers/initGuild";
 import { initUser } from "./modules/passives/initialisers/initUser";
 import { initUsersXp } from "./modules/passives/initialisers/initUsersXp";
 import { initXpDays } from "./modules/passives/initialisers/initXpDays";
+import { claimXp } from "./modules/passives/claimXp";
 
 export const prisma = new PrismaClient();
 
@@ -54,9 +55,12 @@ const main = async () => {
 
 client.on("messageCreate", (message) => {
     const context = contextBuilder(client, message);
-    initUser(context);
-    initUsersXp(context);
-    initXpDays(context);
+
+    initUser(context); // need some optimisation with these db functions
+    initUsersXp(context); // well I guess they are good enough
+    initXpDays(context); // for now
+    claimXp(context);
+
     tryCommands(context, [humanMatcher], textCommands);
 });
 
