@@ -56,6 +56,12 @@ const main = async () => {
 client.on("messageCreate", (message) => {
     const context = contextBuilder(client, message);
 
+    // rlly annoying when the data in the db gets deleted
+    // and I have to manually add this line of code again
+    // because I dont want to reinvite the bot in the server
+    if (message.guild && process.env.NODE_ENV === "development")
+        initGuild(message.guild);
+
     initUser(context); // need some optimisation with these db functions
     initUsersXp(context); // well I guess they are good enough
     initXpDays(context); // for now
