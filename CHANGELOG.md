@@ -1,3 +1,24 @@
+# [1.6.0](https://github.com/vycdev/Morpheus/compare/v1.5.0...v1.6.0) (2022-10-25)
+
+
+### Bug Fixes
+
+* if the total xp in the guild was 0 the function would return without giving xp to the user ([a15fde7](https://github.com/vycdev/Morpheus/commit/a15fde70d689a2cce3f9304843743c85d6149d7f))
+
+
+### Features
+
+* a bunch of functions to compute levels and xp and get levels from the database ([86c8e95](https://github.com/vycdev/Morpheus/commit/86c8e95a3f006f0f439491c48edfbc80f78ef8a7))
+* age command ([952c0fe](https://github.com/vycdev/Morpheus/commit/952c0fed3875f2903fd1bec5e5d2956df7458b66))
+* auto xp claiming ([f5cc543](https://github.com/vycdev/Morpheus/commit/f5cc543999b6b1f32f6d4b29af86bb76beae6330))
+* Basic level ups YAAAY ([865a96c](https://github.com/vycdev/Morpheus/commit/865a96c5b6ac8fa1b09a37e88ff0cfe720bc6ba5))
+* guilds initialization in the database ([b00fdf9](https://github.com/vycdev/Morpheus/commit/b00fdf93aa80bc7858f8eb87ac4ae51ba410be20))
+* init users in the database ([28d66ac](https://github.com/vycdev/Morpheus/commit/28d66acbae2a4ef0da3b2064844d1b291b182343))
+* init users xp in the database ([138a606](https://github.com/vycdev/Morpheus/commit/138a606dc932b89919f45b17fd41513ff2ca0614))
+* init xpdays into the database ([0a5440a](https://github.com/vycdev/Morpheus/commit/0a5440ad61b42b779cfda6eafd3675a9e799a080))
+* scream command ([275e223](https://github.com/vycdev/Morpheus/commit/275e223d718769690fe0e89123723e9db3a1c786))
+* servertime command ([0af12fb](https://github.com/vycdev/Morpheus/commit/0af12fbece39f2541fc46272d724d5815061e6d3))
+
 # [1.5.0](https://github.com/vycdev/Morpheus/compare/v1.4.0...v1.5.0) (2022-10-08)
 
 
