@@ -1,6 +1,6 @@
-import { prisma } from "../..";
-import { humanMatcher } from "../matchers/humanMatcher";
-import { Context } from "../types/types";
+import { prisma } from "../../../";
+import { humanMatcher } from "../../matchers/humanMatcher";
+import { Context } from "../../types/types";
 
 export const initUser = async (context: Context) => {
     if (!(await humanMatcher(context))) return;

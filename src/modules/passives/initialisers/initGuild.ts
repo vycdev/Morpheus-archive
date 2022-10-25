@@ -1,5 +1,5 @@
 import { Guild } from "discord.js";
-import { prisma } from "../..";
+import { prisma } from "../../../";
 
 export const initGuild = async (guild: Guild) => {
     const guildExists = await prisma.guilds.findUnique({

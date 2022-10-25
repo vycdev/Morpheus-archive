@@ -8,10 +8,10 @@ import { tryCommands } from "./modules/tryCommands";
 import { helpMessageInteractionHandler } from "./commands/utility/help";
 
 import { PrismaClient } from "@prisma/client";
-import { initGuild } from "./modules/passives/initGuild";
-import { initUser } from "./modules/passives/initUser";
-import { initUsersXp } from "./modules/passives/initUsersXp";
-import { initXpDays } from "./modules/passives/initXpDays";
+import { initGuild } from "./modules/passives/initialisers/initGuild";
+import { initUser } from "./modules/passives/initialisers/initUser";
+import { initUsersXp } from "./modules/passives/initialisers/initUsersXp";
+import { initXpDays } from "./modules/passives/initialisers/initXpDays";
 
 export const prisma = new PrismaClient();
 
