@@ -9,6 +9,7 @@ import { helpMessageInteractionHandler } from "./commands/utility/help";
 
 import { PrismaClient } from "@prisma/client";
 import { initGuild } from "./modules/passives/initGuild";
+import { initUser } from "./modules/passives/initUser";
 export const prisma = new PrismaClient();
 
 const intents = new IntentsBitField();
@@ -49,7 +50,7 @@ const main = async () => {
 
 client.on("messageCreate", (message) => {
     const context = contextBuilder(client, message);
-
+    initUser(context);
     tryCommands(context, [humanMatcher], textCommands);
 });
 
