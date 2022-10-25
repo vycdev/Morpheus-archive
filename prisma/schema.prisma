@@ -38,7 +38,6 @@ model UsersXp {
     id               Int      @id @default(autoincrement())
     // Data
     balance          Int      @default(0)
-    lastxpclaim      DateTime @default(now())
     levelup_messages Boolean  @default(true)
     // Foreign keys
     usersUser_id     String
