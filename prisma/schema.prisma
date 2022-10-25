@@ -26,7 +26,7 @@ model Users {
     // Primary key
     user_id     String    @id
     // Data
-    user_name   String // Needs to be updated from time to time, so its easier to find users in the database table.
+    user_tag    String // Needs to be updated from time to time, so its easier to find users in the database table.
     description String?
     // Relations
     quotes      Quotes[]
