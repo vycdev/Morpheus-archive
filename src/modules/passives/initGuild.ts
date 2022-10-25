@@ -15,5 +15,4 @@ export const initGuild = async (guild: Guild) => {
             guild_id: guild.id
         }
     });
-    console.info(`Joined new guild: ${guild.name}`);
 };
