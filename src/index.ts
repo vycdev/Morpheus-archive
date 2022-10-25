@@ -7,8 +7,12 @@ import { humanMatcher } from "./modules/matchers/humanMatcher";
 import { tryCommands } from "./modules/tryCommands";
 import { helpMessageInteractionHandler } from "./commands/utility/help";
 
+import { PrismaClient } from "@prisma/client";
+import { initGuild } from "./modules/passives/initGuild";
+export const prisma = new PrismaClient();
+
 const intents = new IntentsBitField();
-intents.add(32767);
+intents.add(32767); // Fix this please.
 intents.add("MessageContent");
 const client = new Client({ intents });
 
@@ -48,6 +52,7 @@ client.on("messageCreate", (message) => {
 
     tryCommands(context, [humanMatcher], textCommands);
 });
+
 client.on("interactionCreate", (interaction) => {
     helpMessageInteractionHandler(interaction);
     //     // Slash commands test
@@ -56,6 +61,10 @@ client.on("interactionCreate", (interaction) => {
     //     // const { commandName } = interaction;
 
     //     interaction.reply("pong");
+});
+
+client.on("guildCreate", (guild) => {
+    initGuild(guild);
 });
 
 client.on("error", (err) => console.error(`🔴 ${err}`));
