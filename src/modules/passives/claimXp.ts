@@ -29,9 +29,9 @@ export const claimXp = async (context: Context) => {
     if (!xpToday) return;
 
     const totalXp = await totalXpGuild(usersxp);
-    if (!totalXp) return;
+    if (totalXp === undefined) return;
 
-    if (new Date().getTime() - xpToday.lastClaimed.getTime() > claimCooldown)
+    if (new Date().getTime() - xpToday.lastClaimed.getTime() > claimCooldown) {
         await prisma.xpDays.update({
             where: {
                 id: xpToday.id
@@ -42,4 +42,5 @@ export const claimXp = async (context: Context) => {
                 timesClaimed: xpToday.timesClaimed + 1
             }
         });
+    }
 };
