@@ -12,25 +12,32 @@ datasource db {
 
 model Guilds {
     // Primary key
-    guild_id String         @id
+    guild_id         String         @id
     // Data
-    prefix   String         @default("m!")
+    prefix           String         @default("m!")
+    levelUps_channel String?
+    quotes_channel   String?
+    // motds_channel    String?
+    disable_levelUps Boolean        @default(false)
+    disable_Quotes   Boolean        @default(false)
     // Relations
-    quotes   Quotes[]
-    usersxp  UserProfiles[]
-    Motds    Motds[]
+    quotes           Quotes[]
+    usersxp          UserProfiles[]
+    Motds            Motds[]
 }
 
 model Users {
     // id               Int      @id @default(autoincrement())
     // Primary key
-    user_id  String         @id
+    user_id          String         @id
     // Data
-    user_tag String // Needs to be updated from time to time, so its easier to find users in the database table.
+    user_tag         String // Needs to be updated from time to time, so its easier to find users in the database table.
+    disable_levelUps Boolean        @default(false) // Global
+    disable_quotes   Boolean        @default(false) // Global
     // Relations
-    quotes   Quotes[]
-    usersxp  UserProfiles[]
-    Motds    Motds[]
+    quotes           Quotes[]
+    usersxp          UserProfiles[]
+    Motds            Motds[]
 }
 
 model UserProfiles {
@@ -38,7 +45,8 @@ model UserProfiles {
     id               Int      @id @default(autoincrement())
     // Data
     balance          Int      @default(0)
-    levelup_messages Boolean  @default(true)
+    disable_levelUps Boolean  @default(true) // On the server
+    disable_quotes   Boolean  @default(true) // On the server
     // Foreign keys
     usersUser_id     String
     guildsGuild_id   String
