@@ -8,7 +8,7 @@ export const setPrefixCommand: Command = (context) => [
         name: "Set Prefix",
         description: "Will set the prefix of the server for bot commands.",
         longDescription:
-            "This will set the prefix for the bot commands across the server. The only command who will preserve the prefix will be the help command, but it will also support the new prefix.",
+            "This will set the prefix for the bot commands across the server. The only command who will preserve the prefix will be the help command, but it will also support the new prefix. Requires administrator or manage guild permission.",
         usage: ["m!setprefix", "m!sp"],
         usageExamples: ["m!sp m!", "m!setprefix !"],
         category: "Guild",
@@ -45,6 +45,20 @@ export const setPrefixCommand: Command = (context) => [
                     code: 400,
                     type: "logToDiscord",
                     info: "The prefix can only be at least 1 and at most 2 characters long."
+                },
+                context
+            );
+            return;
+        }
+        if (
+            !message.member?.permissions.has("Administrator") ||
+            !message.member?.permissions.has("ManageGuild")
+        ) {
+            logHandler(
+                {
+                    code: 400,
+                    type: "logToDiscord",
+                    info: "You don't have the permission to use this command."
                 },
                 context
             );
