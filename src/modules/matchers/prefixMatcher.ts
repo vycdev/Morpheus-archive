@@ -12,7 +12,7 @@ export const prefixMatcher: Matcher<string[]> = async (context, match) => {
         (
             await prisma.guilds.findFirst({
                 where: {
-                    guild_id: message.guild?.id
+                    guild_id: message.guild?.id || ""
                 }
             })
         )?.prefix || "m!";
