@@ -4,6 +4,7 @@ export type Context = {
     client: Client;
     message: Message;
     content: string;
+    argvs: string[];
 };
 
 export type LOG = {
