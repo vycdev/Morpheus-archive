@@ -26,11 +26,14 @@ const updateBalance = async (context: Context, level: number) => {
             balance: balanceGain
         }
     });
+    return balanceGain;
 };
 
-export const levelUp = (context: Context, level: number) => {
+export const levelUp = async (context: Context, level: number) => {
     const { message } = context;
 
-    updateBalance(context, level);
-    message.reply(`You leveled up, you are now level *${level}!*`);
+    const balanceGain = await updateBalance(context, level);
+    message.reply(
+        `You leveled up, you are now level *${level}*!\nYou also earned $${balanceGain}!`
+    );
 };
