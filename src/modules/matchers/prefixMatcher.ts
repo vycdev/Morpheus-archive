@@ -1,3 +1,4 @@
+import { prisma } from "../..";
 import { Matcher } from "../types/types";
 
 const symbols = ["-", "."];
@@ -7,7 +8,16 @@ export const prefixMatcher: Matcher<string[]> = async (context, match) => {
     const { message } = context;
     const messagePrefix = message.content.split(" ")[0];
 
-    const prefixToMatch = match.map((m) => "m!" + m);
+    const serverPrefix =
+        (
+            await prisma.guilds.findFirst({
+                where: {
+                    guild_id: message.guild?.id
+                }
+            })
+        )?.prefix || "m!";
+
+    const prefixToMatch = match.map((m) => serverPrefix + m);
 
     const regex = new RegExp(
         `^(${prefixToMatch.join(
@@ -16,5 +26,8 @@ export const prefixMatcher: Matcher<string[]> = async (context, match) => {
         "i"
     );
 
-    return !!messagePrefix.match(regex);
+    return (
+        !!messagePrefix.match(regex) ||
+        (match[0] === "help" && messagePrefix === "m!help") // Exception for help command.
+    );
 };
