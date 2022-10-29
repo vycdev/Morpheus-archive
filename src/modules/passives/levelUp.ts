@@ -15,7 +15,6 @@ const updateBalance = async (context: Context, level: number) => {
     if (!userxp) return; // Something would have to be very wrong to return here.
 
     const balanceGain = // Here is the formula for balance gain
-        userxp.balance +
         Math.floor(level * Math.sqrt(level)) * balanceMultiplier;
 
     await prisma.userProfiles.update({
@@ -23,7 +22,7 @@ const updateBalance = async (context: Context, level: number) => {
             id: userxp.id
         },
         data: {
-            balance: balanceGain
+            balance: userxp.balance + balanceGain
         }
     });
     return balanceGain;
