@@ -4,6 +4,7 @@ import { jokeCommand } from "./fun/joke";
 import { sayCommand } from "./fun/say";
 import { screamCommand } from "./fun/scream";
 import { xmasCommand } from "./fun/xmas";
+import { setPrefixCommand } from "./guild/setprefix";
 import { ageCommand } from "./utility/age";
 import { helpCommand } from "./utility/help";
 import { timeCommand } from "./utility/time";
@@ -16,7 +17,8 @@ export const textCommands = [
     xmasCommand,
     screamCommand,
     timeCommand,
-    ageCommand
+    ageCommand,
+    setPrefixCommand
 ];
 
 export const commandsMetadata = textCommands.map((v) => {
