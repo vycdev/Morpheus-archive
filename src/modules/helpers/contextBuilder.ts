@@ -7,6 +7,7 @@ export const contextBuilder: ContextBuilder = (client, message) => {
     return {
         client,
         message,
-        content: content.join(" ")
+        content: content.join(" "),
+        argvs: content
     };
 };
