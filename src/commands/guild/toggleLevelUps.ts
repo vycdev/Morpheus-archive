@@ -16,7 +16,7 @@ export const toggleLevelUps: Command = (context) => [
     },
     [() => prefixMatcher(context, ["tlups", "togglelevelupsserver"])],
     async () => {
-        const { message, content } = context;
+        const { message } = context;
         if (!message.guild) {
             logHandler(
                 {
