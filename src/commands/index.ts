@@ -6,6 +6,7 @@ import { screamCommand } from "./fun/scream";
 import { xmasCommand } from "./fun/xmas";
 import { setPrefixCommand } from "./guild/setprefix";
 import { toggleLevelUps } from "./guild/toggleLevelUps";
+import { toggleQuotes } from "./guild/toggleQuotes";
 import { ageCommand } from "./utility/age";
 import { helpCommand } from "./utility/help";
 import { timeCommand } from "./utility/time";
@@ -20,7 +21,8 @@ export const textCommands = [
     timeCommand,
     ageCommand,
     setPrefixCommand,
-    toggleLevelUps
+    toggleLevelUps,
+    toggleQuotes
 ];
 
 export const commandsMetadata = textCommands.map((v) => {
