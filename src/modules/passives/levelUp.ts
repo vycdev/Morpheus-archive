@@ -30,9 +30,17 @@ const updateBalance = async (context: Context, level: number) => {
 
 export const levelUp = async (context: Context, level: number) => {
     const { message } = context;
-
+    if (!message.guild) return;
     const balanceGain = await updateBalance(context, level);
-    message.reply(
-        `You leveled up, you are now level ${level}!\nYou also earned $${balanceGain}!`
-    );
+
+    const guild = await prisma.guilds.findFirst({
+        where: {
+            guild_id: message.guild.id
+        }
+    });
+
+    if (!guild?.disable_levelUps)
+        message.reply(
+            `You leveled up, you are now level ${level}!\nYou also earned $${balanceGain}!`
+        );
 };
