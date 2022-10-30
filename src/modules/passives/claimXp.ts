@@ -43,7 +43,10 @@ export const claimXp = async (context: Context) => {
                 timesClaimed: xpToday.timesClaimed + 1
             }
         });
-        if (computeLevel(newXpToday.xp) > computeLevel(xpToday.xp))
-            levelUp(context, computeLevel(newXpToday.xp));
+        if (
+            computeLevel(totalXp) >
+            computeLevel(totalXp - (newXpToday.xp - xpToday.xp))
+        )
+            levelUp(context, computeLevel(totalXp));
     }
 };

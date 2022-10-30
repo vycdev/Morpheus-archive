@@ -6,23 +6,23 @@ const balanceMultiplier = parseInt(process.env.BALANCE_MULTIPLIER || "1");
 const updateBalance = async (context: Context, level: number) => {
     if (!context.message.guild) return; // Something would have to be very wrong to return here.
 
-    const userxp = await prisma.userProfiles.findFirst({
+    const userprofile = await prisma.userProfiles.findFirst({
         where: {
             guildsGuild_id: context.message.guild.id,
             usersUser_id: context.message.author.id
         }
     });
-    if (!userxp) return; // Something would have to be very wrong to return here.
+    if (!userprofile) return; // Something would have to be very wrong to return here.
 
     const balanceGain = // Here is the formula for balance gain
         Math.floor(level * Math.sqrt(level)) * balanceMultiplier;
 
     await prisma.userProfiles.update({
         where: {
-            id: userxp.id
+            id: userprofile.id
         },
         data: {
-            balance: userxp.balance + balanceGain
+            balance: userprofile.balance + balanceGain
         }
     });
     return balanceGain;
