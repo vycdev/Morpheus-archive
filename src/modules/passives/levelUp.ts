@@ -1,4 +1,5 @@
 import { prisma } from "../..";
+import { logHandler } from "../handlers/logHandler";
 import { Context } from "../types/types";
 
 const balanceMultiplier = parseInt(process.env.BALANCE_MULTIPLIER || "1");
@@ -38,6 +39,16 @@ export const levelUp = async (context: Context, level: number) => {
             guild_id: message.guild.id
         }
     });
+
+    if (process.env.NODE_ENV === "development")
+        logHandler(
+            {
+                code: 200,
+                info: `${message.author.tag} leveled up, level: ${level}, balance gain: ${balanceGain}`,
+                type: "logToConsole"
+            },
+            context
+        );
 
     if (!guild?.disable_levelUps)
         message.reply(
