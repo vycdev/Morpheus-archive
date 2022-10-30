@@ -8,7 +8,7 @@ export const toggleLevelUps: Command = (context) => [
         name: "Toggle LevelUps",
         description: "Toggle level ups in the server.",
         longDescription:
-            "If level up messages are turned off in the server, the bot will not send level and balance information when a member levels up.",
+            "If level up messages are turned off in the server, the bot will not send level and balance information when a member levels up. Requires administrator or manage guild permission.",
         usage: ["m!tlups", "m!togglelevelupsserver"],
         usageExamples: ["m!tlups", "m!togglelevelupsserver"],
         category: "Fun",

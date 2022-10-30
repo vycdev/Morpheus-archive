@@ -8,7 +8,7 @@ export const toggleQuotes: Command = (context) => [
         name: "Toggle Quotes",
         description: "Toggle quotes in the server.",
         longDescription:
-            "If quotes are turned off in the server, the bot will not send a quotes when a member levels up.",
+            "If quotes are turned off in the server, the bot will not send a quotes when a member levels up. Requires administrator or manage guild permission.",
         usage: ["m!tqs", "m!togglequotesserver"],
         usageExamples: ["m!tqs", "m!togglequotesserver"],
         category: "Fun",
