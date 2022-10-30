@@ -20,6 +20,7 @@ model Guilds {
     // motds_channel    String?
     disable_levelUps Boolean        @default(false)
     disable_Quotes   Boolean        @default(false)
+    global_Quotes    Boolean        @default(false)
     // Relations
     quotes           Quotes[]
     usersxp          UserProfiles[]
