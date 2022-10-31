@@ -11,7 +11,7 @@ export const toggleLevelUps: Command = (context) => [
             "If level up messages are turned off in the server, the bot will not send level and balance information when a member levels up. Requires administrator or manage guild permission.",
         usage: ["m!tlups", "m!togglelevelupsserver"],
         usageExamples: ["m!tlups", "m!togglelevelupsserver"],
-        category: "Fun",
+        category: "Guild",
         cooldown: 10000
     },
     [() => prefixMatcher(context, ["tlups", "togglelevelupsserver"])],
