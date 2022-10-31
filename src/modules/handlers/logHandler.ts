@@ -5,12 +5,12 @@ export const logHandler: LogHandler = (maybeError, context) => {
 
     switch (type) {
         case "logToBoth":
-            console.log(`[${code}]: ${info}`);
+            console.log(`[${new Date().toISOString()}][${code}]: ${info}`);
             context.message.reply(`**[${code}]**: ${info}`);
             break;
 
         case "logToConsole":
-            console.log(`[${code}]: ${info}`);
+            console.log(`[${new Date().toISOString()}][${code}]: ${info}`);
             break;
 
         case "logToDiscord":
@@ -18,7 +18,11 @@ export const logHandler: LogHandler = (maybeError, context) => {
             break;
 
         default:
-            console.error("UNKNOWN LOG TYPE:", maybeError);
+            console.error(
+                new Date().toISOString(),
+                "UNKNOWN LOG TYPE:",
+                maybeError
+            );
             break;
     }
 };
