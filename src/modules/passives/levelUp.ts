@@ -1,3 +1,4 @@
+import { TextChannel } from "discord.js";
 import { prisma } from "../..";
 import { logHandler } from "../handlers/logHandler";
 import { Context } from "../types/types";
@@ -44,14 +45,24 @@ export const levelUp = async (context: Context, level: number) => {
         logHandler(
             {
                 code: 200,
-                info: `${message.author.tag} leveled up, level: ${level}, balance gain: ${balanceGain}`,
+                info: `${message.author.tag} leveled up, level: ${level}, balance gain: ${balanceGain}, guild: ${message.guild.name}`,
                 type: "logToConsole"
             },
             context
         );
 
-    if (!guild?.disable_levelUps)
-        message.reply(
-            `You leveled up, you are now level ${level}!\nYou also earned $${balanceGain}!`
-        );
+    if (!guild?.levelUps_channel) {
+        if (!guild?.disable_levelUps)
+            message.reply(
+                `You leveled up, you are now level ${level}!\nYou also earned $${balanceGain}!`
+            );
+    } else {
+        const levelUpsChannel = message.guild.channels.cache.get(
+            guild.levelUps_channel
+        ) as TextChannel;
+        if (levelUpsChannel)
+            levelUpsChannel.send(
+                `<@${message.author.id}> You leveled up, you are now level ${level}!\nYou also earned $${balanceGain}!`
+            );
+    }
 };
