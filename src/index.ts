@@ -1,5 +1,7 @@
 import "dotenv/config";
-import { Client, IntentsBitField } from "discord.js";
+import { Client } from "discord.js";
+
+import { intents } from "./modules/intents";
 // import commands from "./commands/index";
 import { textCommands } from "./commands/index";
 import { contextBuilder } from "./modules/helpers/contextBuilder";
@@ -15,10 +17,6 @@ import { initXpDays } from "./modules/passives/initialisers/initXpDays";
 import { claimXp } from "./modules/passives/claimXp";
 
 export const prisma = new PrismaClient();
-
-const intents = new IntentsBitField();
-intents.add(32767); // Fix this please.
-intents.add("MessageContent");
 
 const client = new Client({ intents });
 
