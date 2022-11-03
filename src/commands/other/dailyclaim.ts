@@ -83,13 +83,9 @@ export const dailyRewardCommand: Command = (context) => [
                 balance: userProfile.balance + balanceGain
             }
         });
-        if (hasCombo)
-            message.reply(
-                `You succesfully claimed **${balanceGain}** coins. Your streak is **${userProfile.daily_claim_combo}**.\nClaim your reward again tomorrow for even more coins.`
-            );
-        else
-            message.reply(
-                `You succesfully claimed **${balanceGain}** coins. Unfortunately you lost your streak.`
-            );
+
+        message.reply(
+            `You succesfully claimed **${balanceGain}** coins. Your streak is **${userProfile.daily_claim_combo}**.\nClaim your reward again tomorrow for even more coins.`
+        );
     }
 ];
