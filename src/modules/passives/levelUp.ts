@@ -51,6 +51,24 @@ export const levelUp = async (context: Context, level: number) => {
             context
         );
 
+    if (!guild?.disable_levelUps)
+        if (!guild?.levelUps_channel) {
+            message.reply(
+                `You leveled up, you are now level ${level}!\nYou also earned $${balanceGain}!`
+            );
+        } else {
+            const levelUpsChannel = (await message.guild.channels.fetch(
+                guild.levelUps_channel
+            )) as TextChannel;
+            if (levelUpsChannel)
+                levelUpsChannel.send({
+                    content: `<@${message.author.id}> You leveled up, you are now level ${level}!\nYou also earned $${balanceGain}!`,
+                    allowedMentions: { users: [] }
+                });
+        }
+
+    if (guild?.disable_quotes) return;
+
     const quotesCount = await prisma.quotes.count({
         where: {
             guildGuild_id: guild?.global_quotes ? undefined : message.guild.id
@@ -72,31 +90,26 @@ export const levelUp = async (context: Context, level: number) => {
         })
     )[0];
 
-    if (!guild?.levelUps_channel) {
-        if (!guild?.disable_levelUps)
-            message.reply(
-                `You leveled up, you are now level ${level}!\nYou also earned $${balanceGain}!`
-            );
-    } else {
-        const levelUpsChannel = (await message.guild.channels.fetch(
-            guild.levelUps_channel
-        )) as TextChannel;
-        if (levelUpsChannel)
-            levelUpsChannel.send({
-                content: `<@${message.author.id}> You leveled up, you are now level ${level}!\nYou also earned $${balanceGain}!`,
-                allowedMentions: { users: [] }
-            });
-    }
-
     if (!quote) {
-        message.channel.send(
-            "This server has no quotes added, disable the quotes or add some quotes for this message to no longer appear."
-        );
+        if (!guild?.quotes_channel) {
+            message.channel.send(
+                "This server has no quotes added, disable the quotes or add some quotes for this message to no longer appear."
+            );
+        } else {
+            const quotesChannel = (await message.guild.channels.fetch(
+                guild.quotes_channel
+            )) as TextChannel;
+            if (quotesChannel)
+                quotesChannel.send(
+                    "This server has no quotes added, disable the quotes or add some quotes for this message to no longer appear."
+                );
+        }
+
         return;
     }
 
     if (!guild?.quotes_channel) {
-        if (!guild?.disable_quotes) message.channel.send(`${quote.quote}`);
+        message.channel.send(`${quote.quote}`);
     } else {
         const quotesChannel = (await message.guild.channels.fetch(
             guild.quotes_channel
