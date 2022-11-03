@@ -43,18 +43,20 @@ model Users {
 
 model UserProfiles {
     // Primary key
-    id               Int      @id @default(autoincrement())
+    id                Int      @id @default(autoincrement())
     // Data
-    balance          Int      @default(0)
-    disable_levelUps Boolean  @default(true) // On the server
-    disable_quotes   Boolean  @default(true) // On the server
+    balance           Int      @default(0)
+    disable_levelUps  Boolean  @default(true) // On the server
+    disable_quotes    Boolean  @default(true) // On the server
+    last_daily_claim  DateTime @default(now()) // So what if nobody will be able to claim their reward in the first day they interact with the bot.
+    daily_claim_combo Int      @default(1)
     // Foreign keys
-    usersUser_id     String
-    guildsGuild_id   String
-    Users            Users    @relation(fields: [usersUser_id], references: [user_id])
-    Guilds           Guilds   @relation(fields: [guildsGuild_id], references: [guild_id])
+    usersUser_id      String
+    guildsGuild_id    String
+    Users             Users    @relation(fields: [usersUser_id], references: [user_id])
+    Guilds            Guilds   @relation(fields: [guildsGuild_id], references: [guild_id])
     // Relations
-    XpDays           XpDays[] // determine the level based on total xp, determine the total xp based on xpdays
+    XpDays            XpDays[] // determine the level based on total xp, determine the total xp based on xpdays
 }
 
 model XpDays {

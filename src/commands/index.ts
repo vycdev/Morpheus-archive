@@ -9,6 +9,7 @@ import { setPrefixCommand } from "./guild/setprefix";
 import { setQuotesChannel } from "./guild/setQuotesChannel";
 import { toggleLevelUps } from "./guild/toggleLevelUps";
 import { toggleQuotes } from "./guild/toggleQuotes";
+import { dailyRewardCommand } from "./other/dailyclaim";
 import { ageCommand } from "./utility/age";
 import { helpCommand } from "./utility/help";
 import { timeCommand } from "./utility/time";
@@ -26,7 +27,8 @@ export const textCommands = [
     toggleLevelUps,
     toggleQuotes,
     setLevelUpChannel,
-    setQuotesChannel
+    setQuotesChannel,
+    dailyRewardCommand
 ];
 
 export const commandsMetadata = textCommands.map((v) => {
