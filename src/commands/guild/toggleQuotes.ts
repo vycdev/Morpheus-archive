@@ -66,11 +66,11 @@ export const toggleQuotes: Command = (context) => [
                 guild_id: guild.guild_id
             },
             data: {
-                disable_Quotes: !guild.disable_Quotes
+                disable_quotes: !guild.disable_quotes
             }
         });
 
-        if (guild.disable_Quotes) {
+        if (guild.disable_quotes) {
             message.reply("Quotes in the guild have been enabled.");
         } else {
             message.reply("Quotes in the guild have been disabled.");
