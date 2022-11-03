@@ -1,4 +1,4 @@
-import { TextChannel } from "discord.js";
+import { AllowedMentionsTypes, TextChannel } from "discord.js";
 import { prisma } from "../..";
 import { logHandler } from "../handlers/logHandler";
 import { Context } from "../types/types";
@@ -51,6 +51,27 @@ export const levelUp = async (context: Context, level: number) => {
             context
         );
 
+    const quotesCount = await prisma.quotes.count({
+        where: {
+            guildGuild_id: guild?.global_quotes ? undefined : message.guild.id
+        }
+    });
+    const skip = Math.floor(Math.random() * quotesCount);
+    const quote = (
+        await prisma.quotes.findMany({
+            take: 1,
+            skip: skip,
+            where: {
+                guildGuild_id: guild?.global_quotes
+                    ? undefined
+                    : message.guild.id
+            },
+            orderBy: {
+                id: "desc"
+            }
+        })
+    )[0];
+
     if (!guild?.levelUps_channel) {
         if (!guild?.disable_levelUps)
             message.reply(
@@ -61,8 +82,28 @@ export const levelUp = async (context: Context, level: number) => {
             guild.levelUps_channel
         ) as TextChannel;
         if (levelUpsChannel)
-            levelUpsChannel.send(
-                `<@${message.author.id}> You leveled up, you are now level ${level}!\nYou also earned $${balanceGain}!`
-            );
+            levelUpsChannel.send({
+                content: `<@${message.author.id}> You leveled up, you are now level ${level}!\nYou also earned $${balanceGain}!`,
+                allowedMentions: { users: [] }
+            });
+    }
+
+    if (!quote) {
+        message.channel.send(
+            "This server has no quotes added, disable the quotes or add some quotes for this message to no longer appear."
+        );
+    }
+
+    if (!guild?.quotes_channel) {
+        if (!guild?.disable_quotes) message.channel.send(`${quote.quote}`);
+    } else {
+        const quotesChannel = message.guild.channels.cache.get(
+            guild.quotes_channel
+        ) as TextChannel;
+        if (quotesChannel)
+            quotesChannel.send({
+                content: `${quote.quote}`,
+                allowedMentions: { users: [] }
+            });
     }
 };
