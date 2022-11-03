@@ -1,4 +1,4 @@
-import { AllowedMentionsTypes, TextChannel } from "discord.js";
+import { TextChannel } from "discord.js";
 import { prisma } from "../..";
 import { logHandler } from "../handlers/logHandler";
 import { Context } from "../types/types";
@@ -92,6 +92,7 @@ export const levelUp = async (context: Context, level: number) => {
         message.channel.send(
             "This server has no quotes added, disable the quotes or add some quotes for this message to no longer appear."
         );
+        return;
     }
 
     if (!guild?.quotes_channel) {
