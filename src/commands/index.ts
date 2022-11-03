@@ -11,6 +11,7 @@ import { toggleGlobalQuotes } from "./guild/toggleGlobalQuotes";
 import { toggleLevelUps } from "./guild/toggleLevelUps";
 import { toggleQuotes } from "./guild/toggleQuotes";
 import { dailyRewardCommand } from "./other/dailyclaim";
+import { feedbackCommand } from "./other/feedback";
 import { addQuoteCommand } from "./quotes/addquote";
 import { ageCommand } from "./utility/age";
 import { helpCommand } from "./utility/help";
@@ -32,7 +33,8 @@ export const textCommands = [
     setQuotesChannel,
     dailyRewardCommand,
     addQuoteCommand,
-    toggleGlobalQuotes
+    toggleGlobalQuotes,
+    feedbackCommand
 ];
 
 export const commandsMetadata = textCommands.map((v) => {
