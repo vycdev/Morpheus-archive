@@ -1,8 +1,8 @@
 import { UserProfiles } from "@prisma/client";
 import { prisma } from "../..";
 
-const xpMultiplier = parseInt(process.env.XP_MULTIPLIER || "1");
-const scaler = parseInt(process.env.XP_SCALER || "10");
+const xpMultiplier = parseFloat(process.env.XP_MULTIPLIER || "1");
+const scaler = parseFloat(process.env.XP_SCALER || "10");
 
 export const computeLevel = (xp: number) => {
     return Math.floor(Math.sqrt(xp / scaler));

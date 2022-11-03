@@ -3,7 +3,7 @@ import { prisma } from "../..";
 import { logHandler } from "../handlers/logHandler";
 import { Context } from "../types/types";
 
-const balanceMultiplier = parseInt(process.env.BALANCE_MULTIPLIER || "1");
+const balanceMultiplier = parseFloat(process.env.BALANCE_MULTIPLIER || "1");
 
 const updateBalance = async (context: Context, level: number) => {
     if (!context.message.guild) return; // Something would have to be very wrong to return here.
