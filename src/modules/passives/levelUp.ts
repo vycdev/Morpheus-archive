@@ -78,9 +78,9 @@ export const levelUp = async (context: Context, level: number) => {
                 `You leveled up, you are now level ${level}!\nYou also earned $${balanceGain}!`
             );
     } else {
-        const levelUpsChannel = message.guild.channels.cache.get(
+        const levelUpsChannel = (await message.guild.channels.fetch(
             guild.levelUps_channel
-        ) as TextChannel;
+        )) as TextChannel;
         if (levelUpsChannel)
             levelUpsChannel.send({
                 content: `<@${message.author.id}> You leveled up, you are now level ${level}!\nYou also earned $${balanceGain}!`,
@@ -97,9 +97,9 @@ export const levelUp = async (context: Context, level: number) => {
     if (!guild?.quotes_channel) {
         if (!guild?.disable_quotes) message.channel.send(`${quote.quote}`);
     } else {
-        const quotesChannel = message.guild.channels.cache.get(
+        const quotesChannel = (await message.guild.channels.fetch(
             guild.quotes_channel
-        ) as TextChannel;
+        )) as TextChannel;
         if (quotesChannel)
             quotesChannel.send({
                 content: `${quote.quote}`,
