@@ -12,7 +12,7 @@ export const addQuoteCommand: Command = (context) => [
         usage: ["m!addquote", "m!aq"],
         usageExamples: ["m!aq This is a quote", "m!addquote Quotes are fun"],
         category: "Quotes",
-        cooldown: 10000
+        cooldown: 5000
     },
     [() => prefixMatcher(context, ["aq", "addquote"])],
     async () => {
