@@ -145,7 +145,6 @@ export const quotesCommand: Command = (context) => [
             );
             return;
         }
-        const totalQuotes = await countQuotes(context.message.guild.id);
         const embed = await generateQuotesEmbed(
             0,
             context.message.guild.id,
