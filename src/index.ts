@@ -15,6 +15,7 @@ import { initUser } from "./modules/passives/initialisers/initUser";
 import { initUsersXp } from "./modules/passives/initialisers/initUsersXp";
 import { initXpDays } from "./modules/passives/initialisers/initXpDays";
 import { claimXp } from "./modules/passives/claimXp";
+import { quotesComponentInteractionHandler } from "./commands/quotes/quotes";
 
 export const prisma = new PrismaClient();
 
@@ -70,6 +71,7 @@ client.on("messageCreate", (message) => {
 
 client.on("interactionCreate", (interaction) => {
     helpMessageInteractionHandler(interaction);
+    quotesComponentInteractionHandler(interaction);
     //     // Slash commands test
     //     if (!interaction.isCommand()) return;
 

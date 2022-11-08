@@ -14,6 +14,7 @@ import { dailyRewardCommand } from "./other/dailyclaim";
 import { feedbackCommand } from "./other/feedback";
 import { addQuoteCommand } from "./quotes/addquote";
 import { deleteQuote } from "./quotes/deletequote";
+import { quotesCommand } from "./quotes/quotes";
 import { ageCommand } from "./utility/age";
 import { helpCommand } from "./utility/help";
 import { timeCommand } from "./utility/time";
@@ -36,7 +37,8 @@ export const textCommands = [
     addQuoteCommand,
     toggleGlobalQuotes,
     feedbackCommand,
-    deleteQuote
+    deleteQuote,
+    quotesCommand
 ];
 
 export const commandsMetadata = textCommands.map((v) => {
