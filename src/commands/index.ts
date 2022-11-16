@@ -12,6 +12,7 @@ import { toggleLevelUps } from "./guild/toggleLevelUps";
 import { toggleQuotes } from "./guild/toggleQuotes";
 import { dailyRewardCommand } from "./other/dailyclaim";
 import { feedbackCommand } from "./other/feedback";
+import { profileCommand } from "./profile/profile";
 import { addQuoteCommand } from "./quotes/addquote";
 import { ageCommand } from "./utility/age";
 import { helpCommand } from "./utility/help";
@@ -34,7 +35,8 @@ export const textCommands = [
     dailyRewardCommand,
     addQuoteCommand,
     toggleGlobalQuotes,
-    feedbackCommand
+    feedbackCommand,
+    profileCommand
 ];
 
 export const commandsMetadata = textCommands.map((v) => {

@@ -28,6 +28,16 @@ export const totalXpGuild = async (userxp: UserProfiles) => {
     return totalXp;
 };
 
+export const totalBalanceUser = async (userid: string) => {
+    const userProfilesBalances = (await prisma.userprofiles.findMany({
+        where: {
+            userUser_id: userid
+        }
+    })).map(v => v.balance);
+
+    return userProfiles.reduce((prev, cur) => prev+cur, 0);
+}
+
 export const totalXpUser = async (userid: string) => {
     const usersxp = await prisma.userProfiles.findMany({
         where: {
