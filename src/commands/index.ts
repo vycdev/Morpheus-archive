@@ -4,6 +4,7 @@ import { jokeCommand } from "./fun/joke";
 import { sayCommand } from "./fun/say";
 import { screamCommand } from "./fun/scream";
 import { xmasCommand } from "./fun/xmas";
+import { guildProfileCommand } from "./guild/guildProfile";
 import { setLevelUpChannel } from "./guild/setLevelUpChannel";
 import { setPrefixCommand } from "./guild/setprefix";
 import { setQuotesChannel } from "./guild/setQuotesChannel";
@@ -36,7 +37,8 @@ export const textCommands = [
     addQuoteCommand,
     toggleGlobalQuotes,
     feedbackCommand,
-    profileCommand
+    profileCommand,
+    guildProfileCommand
 ];
 
 export const commandsMetadata = textCommands.map((v) => {
