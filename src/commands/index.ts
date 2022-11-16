@@ -4,6 +4,7 @@ import { jokeCommand } from "./fun/joke";
 import { sayCommand } from "./fun/say";
 import { screamCommand } from "./fun/scream";
 import { xmasCommand } from "./fun/xmas";
+import { guildProfileCommand } from "./guild/guildProfile";
 import { setLevelUpChannel } from "./guild/setLevelUpChannel";
 import { setPrefixCommand } from "./guild/setprefix";
 import { setQuotesChannel } from "./guild/setQuotesChannel";
@@ -12,6 +13,7 @@ import { toggleLevelUps } from "./guild/toggleLevelUps";
 import { toggleQuotes } from "./guild/toggleQuotes";
 import { dailyRewardCommand } from "./other/dailyclaim";
 import { feedbackCommand } from "./other/feedback";
+import { profileCommand } from "./profile/profile";
 import { addQuoteCommand } from "./quotes/addquote";
 import { deleteQuote } from "./quotes/deletequote";
 import { quotesCommand } from "./quotes/quotes";
@@ -38,7 +40,9 @@ export const textCommands = [
     toggleGlobalQuotes,
     feedbackCommand,
     deleteQuote,
-    quotesCommand
+    quotesCommand,
+    profileCommand,
+    guildProfileCommand
 ];
 
 export const commandsMetadata = textCommands.map((v) => {
