@@ -20,6 +20,7 @@ export const totalXpGuild = async (userxp: UserProfiles) => {
             usersXpId: userxp.id
         }
     });
+
     if (!xpDays) return;
     const totalXp = xpDays
         .map((v) => v.xp)
@@ -29,14 +30,16 @@ export const totalXpGuild = async (userxp: UserProfiles) => {
 };
 
 export const totalBalanceUser = async (userid: string) => {
-    const userProfilesBalances = (await prisma.userProfiles.findMany({
-        where: {
-            userUser_id: userid
-        }
-    })).map(v => v.balance);
+    const userProfilesBalances = (
+        await prisma.userProfiles.findMany({
+            where: {
+                usersUser_id: userid
+            }
+        })
+    ).map((v) => v.balance);
 
-    return userProfiles.reduce((prev, cur) => prev+cur, 0);
-}
+    return userProfilesBalances.reduce((prev, cur) => prev + cur, 0);
+};
 
 export const totalXpUser = async (userid: string) => {
     const usersxp = await prisma.userProfiles.findMany({

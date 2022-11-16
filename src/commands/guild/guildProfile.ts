@@ -2,8 +2,8 @@ import { prisma } from "../..";
 import { logHandler } from "../../modules/handlers/logHandler";
 import { totalXpUser } from "../../modules/helpers/computeLevel";
 import { prefixMatcher } from "../../modules/matchers/prefixMatcher";
-import { Command } from "../../modules/types/types";
-import {EmbedBuilder} from "discord.js"
+import { Command, Context } from "../../modules/types/types";
+import { EmbedBuilder } from "discord.js";
 import { computeLevel } from "../../modules/helpers/computeLevel";
 import { totalBalanceUser } from "../../modules/helpers/computeLevel";
 
@@ -14,11 +14,11 @@ const getData = async (guildGuild_id: string) => {
         }
     });
 
-    if(!guildProfile) return; 
+    if (!guildProfile) return;
 
     const total_quotes_guild = await prisma.quotes.count({
         where: {
-            guildsGuild_id: guildGuild_id
+            guildGuild_id: guildGuild_id
         }
     });
 
@@ -31,15 +31,15 @@ const getData = async (guildGuild_id: string) => {
     return {
         prefix: guildProfile.prefix,
         total_guild_bot_users,
-        
+
         total_quotes_guild,
         levelUps_channel: guildProfile.levelUps_channel,
         quotes_channel: guildProfile.quotes_channel,
         disable_levelUps: guildProfile.disable_levelUps,
         disable_quotes: guildProfile.disable_quotes,
         global_quotes: guildProfile.global_quotes
-    }
-}
+    };
+};
 
 const guildNotFound = async (context: Context) => {
     logHandler(
@@ -51,7 +51,7 @@ const guildNotFound = async (context: Context) => {
         context
     );
     return;
-} 
+};
 
 export const guildProfileCommand: Command = (context) => [
     {
@@ -66,7 +66,7 @@ export const guildProfileCommand: Command = (context) => [
     },
     [() => prefixMatcher(context, ["gp", "guildProfile"])],
     async () => {
-        const { message, argvs } = context;
+        const { message } = context;
         if (!context.message.guild) {
             logHandler(
                 {
@@ -77,26 +77,58 @@ export const guildProfileCommand: Command = (context) => [
                 context
             );
             return;
-        }                   
-                
+        }
+
         const profileData = await getData(context.message.guild.id);
-        if(!profileData) guildNotFound(context);
-        
+        if (!profileData) guildNotFound(context);
+
         const embed = new EmbedBuilder()
-        .setColor(0x05b7f7)
-        .setTitle(context.message.guild.name)
-        .setThumbnail(context.message.guild.iconURL())
-        .addFields(
-            { name: 'COMMANDS PREFIX', value: profileData?.prefix },
-            { name: 'TOTAL BOT USERS', value: profileData?.total_guild_bot_users, inline: true},
-            { name: 'DISABLE LEVEL UPS', value: profileData?.disable_levelUps },
-            { name: 'DISABLE QUOTES', value: profileData?.disable_quotes, inline: true},
-            { name: 'GLOBAL QUOTES', value: profileData?.global_quotes},
-            { name: 'TOTAL GUILD QUOTES', value: profileData?.total_quotes_guild, inline: true},
-            { name: 'LEVEL UPS CHANNEL', value: profileData?.levelUps_channel},
-            { name: 'QUOTES CHANNEL', value: profileData?.quotes_channel, inline: true},
+            .setColor(0x05b7f7)
+            .setTitle(context.message.guild.name)
+            .setThumbnail(context.message.guild.iconURL())
+            .addFields(
+                {
+                    name: "COMMANDS PREFIX",
+                    value: `${profileData?.prefix}`,
+                    inline: true
+                },
+                {
+                    name: "TOTAL BOT USERS",
+                    value: `${profileData?.total_guild_bot_users}`,
+                    inline: true
+                },
+                {
+                    name: "DISABLE LEVEL UPS",
+                    value: `${profileData?.disable_levelUps}`,
+                    inline: true
+                },
+                {
+                    name: "DISABLE QUOTES",
+                    value: `${profileData?.disable_quotes}`,
+                    inline: true
+                },
+                {
+                    name: "GLOBAL QUOTES",
+                    value: `${profileData?.global_quotes}`,
+                    inline: true
+                },
+                {
+                    name: "TOTAL GUILD QUOTES",
+                    value: `${profileData?.total_quotes_guild}`,
+                    inline: true
+                },
+                {
+                    name: "LEVEL UPS CHANNEL",
+                    value: `<#${profileData?.levelUps_channel}>`,
+                    inline: true
+                },
+                {
+                    name: "QUOTES CHANNEL",
+                    value: `<#${profileData?.quotes_channel}>`,
+                    inline: true
+                }
             );
 
-        message.reply({embeds: [embed]});
+        message.reply({ embeds: [embed] });
     }
 ];
