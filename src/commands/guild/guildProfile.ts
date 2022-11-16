@@ -18,13 +18,13 @@ const getData = async (guildGuild_id: string) => {
 
     const total_quotes_guild = await prisma.quotes.count({
         where: {
-            guildGuild_id
+            guildsGuild_id: guildGuild_id
         }
     });
 
     const total_guild_bot_users = await prisma.userProfiles.count({
         where: {
-            guildGuild_id
+            guildsGuild_id: guildGuild_id
         }
     });
 

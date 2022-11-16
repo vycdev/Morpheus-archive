@@ -1,44 +1,44 @@
 import { prisma } from "../..";
 import { logHandler } from "../../modules/handlers/logHandler";
-import { totalXpUser } from "../../modules/helpers/computeLevel";
+import { totalXpUser, totalXpGuild } from "../../modules/helpers/computeLevel";
 import { prefixMatcher } from "../../modules/matchers/prefixMatcher";
 import { Command } from "../../modules/types/types";
 import {EmbedBuilder} from "discord.js"
 import { computeLevel } from "../../modules/helpers/computeLevel";
 import { totalBalanceUser } from "../../modules/helpers/computeLevel";
 
-const getData = async (userUser_id: string, guildGuild_id: string) => {
+const getData = async (usersUser_id: string, guildGuild_id: string) => {
     const userProfile = await prisma.userProfiles.findFirst({
         where: {
-            userUser_id
+            usersUser_id
         }
     });
 
     if(!userProfile) return; 
 
     const total_xp_guild = await totalXpGuild(userProfile);
-    const total_xp_user = await totalXpUser(userUser_id); 
+    const total_xp_user = await totalXpUser(usersUser_id); 
 
     const total_quotes_guild = await prisma.quotes.count({
         where: {
-            userUser_id,
+            usersUser_id,
             guildGuild_id
         }
     });
 
     const total_quotes_user = await prisma.quotes.count({
         where: {
-            userUser_id
+            usersUser_id
         }
     });
 
     const total_servers_w_morpheus_in = await prisma.userProfiles.count({
         where: {
-            userUser_id
+            usersUser_id
         }
     })
 
-    const total_balance_user = await totalBalanceUser(userUser_id); 
+    const total_balance_user = await totalBalanceUser(usersUser_id); 
 
     return {
         total_balance_guild: userProfile.balance, 
@@ -102,9 +102,9 @@ export const profileCommand: Command = (context) => [
         .setThumbnail(!message.mentions.users.first() ? message.author.avatarURL() : message.mentions.users.first().avatarURL())
         .addFields(
             { name: 'USER TOTAL SERVERS WHERE MORPHEUS IS PRESENT IN', value: profileData?.total_servers_w_morpheus_in },
-            { name: 'GUILD LEVEL', value: computeLevel(profileData?.total_xp_guild)},
+            { name: 'GUILD LEVEL', value: computeLevel(profileData!.total_xp_guild)},
             { name: 'GUILD BALANCE', value: profileData?.total_balance_guild, inline: true },
-            { name: 'GLOBAL LEVEL', value: computeLevel(profileData?.total_xp_user) },
+            { name: 'GLOBAL LEVEL', value: computeLevel(profileData!.total_xp_user) },
             { name: 'GLOBAL BALANCE', value: profileData?.total_balance_user, inline: true },
             { name: 'GUILD DISABLED LEVELUPS', value: profileData?.disable_levelUps },
             { name: 'GUILD DISABLED QUOTES', value: profileData?.disable_quotes, inline: true },
