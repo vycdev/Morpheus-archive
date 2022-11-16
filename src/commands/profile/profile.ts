@@ -8,7 +8,7 @@ import { computeLevel } from "../../modules/helpers/computeLevel";
 import { totalBalanceUser } from "../../modules/helpers/computeLevel";
 
 const getData = async (userUser_id: string, guildGuild_id: string) => {
-    const userProfile = await prisma.userprofiles.findFirst({
+    const userProfile = await prisma.userProfiles.findFirst({
         where: {
             userUser_id
         }
@@ -32,7 +32,7 @@ const getData = async (userUser_id: string, guildGuild_id: string) => {
         }
     });
 
-    const total_servers_w_morpheus_in = await prisma.userprofiles.count({
+    const total_servers_w_morpheus_in = await prisma.userProfiles.count({
         where: {
             userUser_id
         }
@@ -101,17 +101,17 @@ export const profileCommand: Command = (context) => [
         .setTitle(!message.mentions.users.first() ? message.author.tag : message.mentions.users.first().tag)
         .setThumbnail(!message.mentions.users.first() ? message.author.avatarURL() : message.mentions.users.first().avatarURL())
         .addFields(
-            { name: 'USER TOTAL SERVERS WHERE MORPHEUS IS PRESENT IN', value: profileData.total_servers_w_morpheus_in },
-            { name: 'GUILD LEVEL', value: computeLevel(profileData.total_xp_guild)},
-            { name: 'GUILD BALANCE', value: profileData.total_balance_guild, inline: true },
-            { name: 'GLOBAL LEVEL', value: computeLevel(profileData.total_xp_user) },
-            { name: 'GLOBAL BALANCE', value: profileData.total_balance_user, inline: true },
-            { name: 'GUILD DISABLED LEVELUPS', value: profileData.disable_levelUps },
-            { name: 'GUILD DISABLED QUOTES', value: profileData.disable_quotes, inline: true },
-            { name: 'GUILD LAST DAILY CLAIM', value: profileData.last_daily_claim },
-            { name: 'GUILD DAILY CLAIM STREAK', value: profileData.daily_claim_combo, inline: true },
-            { name: 'GUILD QUOTES ADDED', value: profileData.total_quotes_guild },
-            { name: 'GLOBAL QUOTES ADDED', value: profileData.total_quotes_user, inline: true },
+            { name: 'USER TOTAL SERVERS WHERE MORPHEUS IS PRESENT IN', value: profileData?.total_servers_w_morpheus_in },
+            { name: 'GUILD LEVEL', value: computeLevel(profileData?.total_xp_guild)},
+            { name: 'GUILD BALANCE', value: profileData?.total_balance_guild, inline: true },
+            { name: 'GLOBAL LEVEL', value: computeLevel(profileData?.total_xp_user) },
+            { name: 'GLOBAL BALANCE', value: profileData?.total_balance_user, inline: true },
+            { name: 'GUILD DISABLED LEVELUPS', value: profileData?.disable_levelUps },
+            { name: 'GUILD DISABLED QUOTES', value: profileData?.disable_quotes, inline: true },
+            { name: 'GUILD LAST DAILY CLAIM', value: profileData?.last_daily_claim },
+            { name: 'GUILD DAILY CLAIM STREAK', value: profileData?.daily_claim_combo, inline: true },
+            { name: 'GUILD QUOTES ADDED', value: profileData?.total_quotes_guild },
+            { name: 'GLOBAL QUOTES ADDED', value: profileData?.total_quotes_user, inline: true },
             );
 
         message.reply({embeds: [embed]});
