@@ -1,11 +1,8 @@
 import { prisma } from "../..";
 import { logHandler } from "../../modules/handlers/logHandler";
-import { totalXpUser } from "../../modules/helpers/computeLevel";
 import { prefixMatcher } from "../../modules/matchers/prefixMatcher";
 import { Command, Context } from "../../modules/types/types";
 import { EmbedBuilder } from "discord.js";
-import { computeLevel } from "../../modules/helpers/computeLevel";
-import { totalBalanceUser } from "../../modules/helpers/computeLevel";
 
 const getData = async (guildGuild_id: string) => {
     const guildProfile = await prisma.guilds.findFirst({
