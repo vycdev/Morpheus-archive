@@ -17,6 +17,7 @@ model Guilds {
     prefix           String         @default("m!")
     levelUps_channel String?
     quotes_channel   String?
+    welcome_channel  String?
     // motds_channel    String?
     disable_levelUps Boolean        @default(false)
     disable_quotes   Boolean        @default(false)

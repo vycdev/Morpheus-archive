@@ -8,6 +8,7 @@ import { guildProfileCommand } from "./guild/guildProfile";
 import { setLevelUpChannel } from "./guild/setLevelUpChannel";
 import { setPrefixCommand } from "./guild/setprefix";
 import { setQuotesChannel } from "./guild/setQuotesChannel";
+import { setWelcomeChannel } from "./guild/setWelcomeChannel";
 import { toggleGlobalQuotes } from "./guild/toggleGlobalQuotes";
 import { toggleLevelUps } from "./guild/toggleLevelUps";
 import { toggleQuotes } from "./guild/toggleQuotes";
@@ -42,7 +43,8 @@ export const textCommands = [
     deleteQuote,
     quotesCommand,
     profileCommand,
-    guildProfileCommand
+    guildProfileCommand,
+    setWelcomeChannel
 ];
 
 export const commandsMetadata = textCommands.map((v) => {

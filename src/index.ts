@@ -16,6 +16,7 @@ import { initUsersXp } from "./modules/passives/initialisers/initUsersXp";
 import { initXpDays } from "./modules/passives/initialisers/initXpDays";
 import { claimXp } from "./modules/passives/claimXp";
 import { quotesComponentInteractionHandler } from "./commands/quotes/quotes";
+import { welcomeEventsInitialiser } from "./modules/passives/welcomeMessages";
 
 export const prisma = new PrismaClient();
 
@@ -47,6 +48,11 @@ const main = async () => {
     console.info(`🟢 Logged in as ${client.user?.tag}`);
 
     setBotActivity();
+    console.info("🟢 Set the bot activity.");
+
+    welcomeEventsInitialiser(client);
+    console.info("🟢 Set the welcome events initialiser.");
+
     // setSlashCommands();
 
     console.info("🟢 The bot is up and running.");
