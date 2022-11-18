@@ -75,24 +75,3 @@ export const welcomeEventsInitialiser = (client: Client) => {
         leaveMessage(member.guild.id, client, member);
     });
 };
-
-// const lib = require('lib')({token: process.env.STDLIB_SECRET_TOKEN});
-
-// await lib.discord.channels['@0.3.2'].messages.create({
-//   "channel_id": `${context.params.event.channel_id}`,
-//   "content": "",
-//   "tts": false,
-//   "embeds": [
-//     {
-//       "type": "rich",
-//       "title": `vycdev#3242`,
-//       "description": `**JOINED THE SERVER**`,
-//       "color": 0x0051ff,
-//       "thumbnail": {
-//         "url": `https://polybit-apps.s3.amazonaws.com/stdlib/users/discord/profile/image.png?1`,
-//         "height": 0,
-//         "width": 0
-//       }
-//     }
-//   ]
-// });
