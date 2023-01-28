@@ -1,4 +1,4 @@
-import { prisma } from "../../../";
+import { prisma } from "../../";
 import { computeLevel, totalXpGuild, xpGain } from "../helpers/computeLevel";
 import { humanMatcher } from "../matchers/humanMatcher";
 import { Context } from "../types/types";
