@@ -9,9 +9,14 @@ import {
 } from "discord.js";
 
 import { commandsMetadata } from "../index";
+import { prisma } from "../..";
+
+let updatedCommandsMetadata = commandsMetadata;
 
 const getCommandCategories = () => {
-    const categories = [...new Set(commandsMetadata.map((v) => v.category))];
+    const categories = [
+        ...new Set(updatedCommandsMetadata.map((v) => v.category))
+    ];
     return categories;
 };
 
@@ -52,7 +57,9 @@ const generateCommandsComponent = (placeholder: string, category: string) => {
 };
 
 const getCommandsByCategory = (category: string) => {
-    const commands = commandsMetadata.filter((v) => category === v.category);
+    const commands = updatedCommandsMetadata.filter(
+        (v) => category === v.category
+    );
 
     return commands;
 };
@@ -77,7 +84,9 @@ const generateCommandEmbed = (metadata: Metadata) => {
 };
 
 const generateCategoryEmbed = (category: string) => {
-    const commands = commandsMetadata.filter((v) => category === v.category);
+    const commands = updatedCommandsMetadata.filter(
+        (v) => category === v.category
+    );
 
     const embedDescription = commands
         .map((metadata) => {
@@ -111,7 +120,7 @@ export const helpMessageInteractionHandler = async (
         return;
     }
     if (interaction.customId === "selectHelpCommand") {
-        const command = commandsMetadata.filter(
+        const command = updatedCommandsMetadata.filter(
             (v) => v.name === interaction.values[0]
         )[0];
 
@@ -149,6 +158,26 @@ export const helpCommand: Command = (context) => [
     async () => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { message, content } = context;
+        const serverPrefix =
+            (
+                await prisma.guilds.findFirst({
+                    where: {
+                        guild_id: message.guild?.id || ""
+                    }
+                })
+            )?.prefix || "m!";
+
+        updatedCommandsMetadata = commandsMetadata.map((v) => {
+            const { usage, usageExamples, ...rest } = v;
+            return {
+                ...rest,
+                usage: usage.map((v) => v.replace("m!", serverPrefix)),
+                usageExamples: usageExamples.map((v) =>
+                    v.replace("m!", serverPrefix)
+                )
+            };
+        });
+
         const row = generateCategoriesComponent("Nothing selected.");
 
         const embed = new EmbedBuilder()

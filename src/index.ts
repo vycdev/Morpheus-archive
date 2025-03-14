@@ -1,5 +1,8 @@
+import "ts-node/register";
 import "dotenv/config";
-import { Client, IntentsBitField } from "discord.js";
+import { Client } from "discord.js";
+
+import { intents } from "./modules/intents";
 // import commands from "./commands/index";
 import { textCommands } from "./commands/index";
 import { contextBuilder } from "./modules/helpers/contextBuilder";
@@ -13,12 +16,10 @@ import { initUser } from "./modules/passives/initialisers/initUser";
 import { initUsersXp } from "./modules/passives/initialisers/initUsersXp";
 import { initXpDays } from "./modules/passives/initialisers/initXpDays";
 import { claimXp } from "./modules/passives/claimXp";
+import { quotesComponentInteractionHandler } from "./commands/quotes/quotes";
+import { welcomeEventsInitialiser } from "./modules/passives/welcomeMessages";
 
 export const prisma = new PrismaClient();
-
-const intents = new IntentsBitField();
-intents.add(32767); // Fix this please.
-intents.add("MessageContent");
 
 const client = new Client({ intents });
 
@@ -48,6 +49,11 @@ const main = async () => {
     console.info(`🟢 Logged in as ${client.user?.tag}`);
 
     setBotActivity();
+    console.info("🟢 Set the bot activity.");
+
+    welcomeEventsInitialiser(client);
+    console.info("🟢 Set the welcome events initialiser.");
+
     // setSlashCommands();
 
     console.info("🟢 The bot is up and running.");
@@ -72,6 +78,7 @@ client.on("messageCreate", (message) => {
 
 client.on("interactionCreate", (interaction) => {
     helpMessageInteractionHandler(interaction);
+    quotesComponentInteractionHandler(interaction);
     //     // Slash commands test
     //     if (!interaction.isCommand()) return;
 

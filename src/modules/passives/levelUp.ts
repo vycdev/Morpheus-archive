@@ -1,36 +1,123 @@
+import { TextChannel } from "discord.js";
 import { prisma } from "../..";
+import { logHandler } from "../handlers/logHandler";
 import { Context } from "../types/types";
 
-const balanceMultiplier = parseInt(process.env.BALANCE_MULTIPLIER || "1");
+const balanceMultiplier = parseFloat(process.env.BALANCE_MULTIPLIER || "1");
 
 const updateBalance = async (context: Context, level: number) => {
     if (!context.message.guild) return; // Something would have to be very wrong to return here.
 
-    const userxp = await prisma.userProfiles.findFirst({
+    const userprofile = await prisma.userProfiles.findFirst({
         where: {
             guildsGuild_id: context.message.guild.id,
             usersUser_id: context.message.author.id
         }
     });
-    if (!userxp) return; // Something would have to be very wrong to return here.
+    if (!userprofile) return; // Something would have to be very wrong to return here.
 
     const balanceGain = // Here is the formula for balance gain
-        userxp.balance +
         Math.floor(level * Math.sqrt(level)) * balanceMultiplier;
 
     await prisma.userProfiles.update({
         where: {
-            id: userxp.id
+            id: userprofile.id
         },
         data: {
-            balance: balanceGain
+            balance: userprofile.balance + balanceGain
         }
     });
+    return balanceGain;
 };
 
-export const levelUp = (context: Context, level: number) => {
+export const levelUp = async (context: Context, level: number) => {
     const { message } = context;
+    if (!message.guild) return;
+    const balanceGain = await updateBalance(context, level);
 
-    updateBalance(context, level);
-    message.reply(`You leveled up, you are now level *${level}!*`);
+    const guild = await prisma.guilds.findFirst({
+        where: {
+            guild_id: message.guild.id
+        }
+    });
+
+    if (process.env.NODE_ENV === "development")
+        logHandler(
+            {
+                code: 200,
+                info: `${message.author.tag} leveled up, level: ${level}, balance gain: ${balanceGain}, guild: ${message.guild.name}`,
+                type: "logToConsole"
+            },
+            context
+        );
+
+    if (!guild?.disable_levelUps)
+        if (!guild?.levelUps_channel) {
+            message.reply(
+                `You leveled up, you are now level ${level}!\nYou also earned $${balanceGain}!`
+            );
+        } else {
+            const levelUpsChannel = (await message.guild.channels.fetch(
+                guild.levelUps_channel
+            )) as TextChannel;
+            if (levelUpsChannel)
+                levelUpsChannel.send({
+                    content: `<@${message.author.id}> You leveled up, you are now level ${level}!\nYou also earned $${balanceGain}!`,
+                    allowedMentions: { users: [] }
+                });
+        }
+
+    if (guild?.disable_quotes) return;
+
+    const quotesCount = await prisma.quotes.count({
+        where: {
+            guildGuild_id: guild?.global_quotes ? undefined : message.guild.id
+        }
+    });
+    const skip = Math.floor(Math.random() * quotesCount);
+    const quote = (
+        await prisma.quotes.findMany({
+            take: 1,
+            skip: skip,
+            where: {
+                guildGuild_id: guild?.global_quotes
+                    ? undefined
+                    : message.guild.id
+            },
+            orderBy: {
+                id: "desc"
+            }
+        })
+    )[0];
+
+    if (!quote) {
+        if (!guild?.quotes_channel) {
+            message.channel.send(
+                "This server has no quotes added, disable the quotes or add some quotes for this message to no longer appear."
+            );
+        } else {
+            const quotesChannel = (await message.guild.channels.fetch(
+                guild.quotes_channel
+            )) as TextChannel;
+            if (quotesChannel)
+                quotesChannel.send(
+                    "This server has no quotes added, disable the quotes or add some quotes for this message to no longer appear."
+                );
+        }
+
+        return;
+    }
+
+    if (!guild?.quotes_channel) {
+        message.channel.send(`${quote.quote}`);
+    } else {
+        const quotesChannel = (await message.guild.channels.fetch(
+            guild.quotes_channel
+        )) as TextChannel;
+        if (quotesChannel)
+            quotesChannel.send({
+                content: `${quote.quote}`,
+                allowedMentions: { users: [] }
+            });
+    }
 };

@@ -1,4 +1,4 @@
-import { prisma } from "../../../";
+import { prisma } from "../../";
 import { computeLevel, totalXpGuild, xpGain } from "../helpers/computeLevel";
 import { humanMatcher } from "../matchers/humanMatcher";
 import { Context } from "../types/types";
@@ -32,18 +32,21 @@ export const claimXp = async (context: Context) => {
     const totalXp = await totalXpGuild(usersxp);
     if (totalXp === undefined) return;
 
+    const xpGained = xpGain(computeLevel(totalXp));
+
     if (new Date().getTime() - xpToday.lastClaimed.getTime() > claimCooldown) {
-        const newXpToday = await prisma.xpDays.update({
+        await prisma.xpDays.update({
             where: {
                 id: xpToday.id
             },
             data: {
                 lastClaimed: new Date(),
-                xp: xpToday.xp + xpGain(computeLevel(totalXp)),
+                xp: xpToday.xp + xpGained,
                 timesClaimed: xpToday.timesClaimed + 1
             }
         });
-        if (computeLevel(newXpToday.xp) > computeLevel(xpToday.xp))
-            levelUp(context, computeLevel(newXpToday.xp));
+        if (computeLevel(totalXp + xpGained) > computeLevel(totalXp)) {
+            levelUp(context, computeLevel(totalXp));
+        }
     }
 };

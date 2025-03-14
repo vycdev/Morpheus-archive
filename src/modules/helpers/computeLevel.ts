@@ -1,8 +1,8 @@
 import { UserProfiles } from "@prisma/client";
 import { prisma } from "../..";
 
-const xpMultiplier = parseInt(process.env.XP_MULTIPLIER || "1");
-const scaler = parseInt(process.env.XP_SCALER || "10");
+const xpMultiplier = parseFloat(process.env.XP_MULTIPLIER || "1");
+const scaler = parseFloat(process.env.XP_SCALER || "10");
 
 export const computeLevel = (xp: number) => {
     return Math.floor(Math.sqrt(xp / scaler));
@@ -20,12 +20,25 @@ export const totalXpGuild = async (userxp: UserProfiles) => {
             usersXpId: userxp.id
         }
     });
+
     if (!xpDays) return;
     const totalXp = xpDays
         .map((v) => v.xp)
         .reduce((prev, curr) => prev + curr, 0);
 
     return totalXp;
+};
+
+export const totalBalanceUser = async (userid: string) => {
+    const userProfilesBalances = (
+        await prisma.userProfiles.findMany({
+            where: {
+                usersUser_id: userid
+            }
+        })
+    ).map((v) => v.balance);
+
+    return userProfilesBalances.reduce((prev, cur) => prev + cur, 0);
 };
 
 export const totalXpUser = async (userid: string) => {
